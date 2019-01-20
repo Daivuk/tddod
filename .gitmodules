@@ -1,0 +1,12 @@
+[submodule "thirdparty/SDL"]
+	path = thirdparty/SDL
+	url = https://github.com/SDL-mirror/SDL.git
+[submodule "thirdparty/imgui"]
+	path = thirdparty/imgui
+	url = https://github.com/Daivuk/imgui.git
+[submodule "thirdparty/SFML"]
+	path = thirdparty/SFML
+	url = https://github.com/SFML/SFML.git
+[submodule "thirdparty/onut"]
+	path = thirdparty/onut
+	url = https://github.com/Daivuk/onut.git
