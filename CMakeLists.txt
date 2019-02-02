@@ -37,9 +37,11 @@ list(APPEND includes PUBLIC ./src/)
 # Third parties
 #------------------------------------------------------------------------------
 
-# onut
-add_subdirectory(./thirdparty/onut/)
-list(APPEND libs libonut)
+# SDL2
+set(HAVE_LIBC ON)
+add_subdirectory(./thirdparty/SDL-mirror/)
+list(APPEND libs SDL2-static)
+list(APPEND includes PUBLIC ./thirdparty/SDL-mirror/include/)
 
 #------------------------------------------------------------------------------
 # Assets
