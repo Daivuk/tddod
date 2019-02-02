@@ -38,6 +38,7 @@ static const int TILE_GRASS = 1;
 static const int TILE_START = 2;
 static const int TILE_END = 3;
 
+static const int TOWER_INVALID = -1;
 static const int TOWER_NONE = 0;
 static const int TOWER_ARROW = 1;
 
@@ -89,6 +90,7 @@ struct Critter
     DRAW_SHAPE_FN drawShape;
     Node* pTargetNode;
     int value;
+    float distance;
 };
 
 struct Spawner
@@ -105,6 +107,20 @@ struct SpawnerDef
     float interval;
     SPAWN_FN spawn;
     int count;
+};
+
+struct Tower
+{
+    float shootInterval;
+    float shootDelay;
+    int level;
+    int type;
+    float damage;
+    Vector2 position;
+    DRAW_SHAPE_FN drawShape;
+    Color color;
+    float size;
+    float range;
 };
 
 struct Wave
@@ -147,6 +163,7 @@ static OFontRef pFont;
 // Vars
 static std::vector<Spawner> spawners;
 static std::vector<Critter> critters;
+static std::vector<Tower> towers;
 static float waveTime = 0.0f;
 static Wave wave = WAVES[0];
 static int health = 20;
@@ -157,7 +174,7 @@ static int placingTower = TOWER_NONE;
 static Point placingPos;
 static Matrix mapTransform;
 static Matrix invMapTransform;
-static uint8_t MAP_TOWERS[MAP_SIZE * MAP_SIZE] = { 0 };
+static int8_t MAP_TOWERS[MAP_SIZE * MAP_SIZE] = { 0 };
 
 void drawBox(OPrimitiveBatch* pPrimitiveBatch, const Vector2& position, float size, const Color& color)
 {
@@ -207,7 +224,8 @@ void spawnPeasant(Node* pNode)
         0.15f,
         drawCircle,
         getNextNode(pNode),
-        10
+        10,
+        0.0f
     });
 }
 
@@ -221,8 +239,34 @@ void spawnWarrior(Node* pNode)
         0.20f,
         drawCircle,
         getNextNode(pNode),
-        10
+        10,
+        0.0f
         });
+}
+
+void addTower(int towerType, const Point& pos)
+{
+    MAP_TOWERS[placingPos.y * MAP_SIZE + placingPos.x] = towerType;
+    placingTower = TOWER_NONE;
+
+    switch (towerType)
+    {
+        case TOWER_ARROW:
+            cash -= 100;
+            towers.push_back({
+                1.0f,
+                0.0f,
+                0,
+                TOWER_ARROW,
+                10.0f,
+                Vector2((float)pos.x + 0.5f, (float)pos.y + 0.5f),
+                drawBox,
+                OColorHex(df7126),
+                0.35f,
+                210.0f / 60.0f
+                });
+            break;
+    }
 }
 
 void initSettings()
@@ -272,9 +316,14 @@ void init()
         {
             for (auto x = 0; x < MAP_SIZE; ++x)
             {
+                if (x == 0 || x == MAP_SIZE - 1 || y == 0)
+                {
+                    MAP_TOWERS[y * MAP_SIZE + x] = TOWER_INVALID;
+                }
                 auto tile = MAP[y * MAP_SIZE + x];
                 if (tile != TILE_GRASS)
                 {
+                    MAP_TOWERS[y * MAP_SIZE + x] = TOWER_INVALID;
                     if (MAP[(y - 1) * MAP_SIZE + x] == TILE_GRASS)
                     {
                         vertices.push_back({{(float)x, (float)y}, pathColor});
@@ -323,6 +372,12 @@ void init()
     }
 }
 
+void damageCritter(Critter* pCritter, float damage)
+{
+    pCritter->health -= damage;
+    cash += pCritter->value;
+}
+
 void updateWave(float dt)
 {
     waveTime += dt;
@@ -365,11 +420,19 @@ void updateWave(float dt)
     for (size_t i = 0, len = critters.size(); i < len;)
     {
         auto& critter = critters[i];
+        if (critter.health <= 0.0f)
+        {
+            critters.erase(critters.begin() + i);
+            --health;
+            --len;
+            continue;
+        }
         auto dir = critter.pTargetNode->position - critter.position;
         auto dist = dir.Length();
         dir.Normalize();
-        critter.position += dir * dt;
+        critter.position += dir * critter.speed * dt;
         dist -= critter.speed * dt;
+        critter.distance += critter.speed * dt;
         if (dist <= 0.0f)
         {
             if (critter.pTargetNode->children.empty())
@@ -388,6 +451,37 @@ void updateWave(float dt)
         ++i;
     }
 
+    // Towers
+    for (auto& tower : towers)
+    {
+        tower.shootDelay -= dt;
+        if (tower.shootDelay <= 0.0f)
+        {
+            // Find critter with the highest dist, in range
+            Critter* pTarget = nullptr;
+            float bestDistance = 0.0f;
+            float rangeSqr = tower.range * tower.range;
+            for (auto& critter : critters)
+            {
+                float distSqr = Vector2::DistanceSquared(critter.position, tower.position);
+                if (distSqr <= rangeSqr)
+                {
+                    if (critter.distance >= bestDistance)
+                    {
+                        pTarget = &critter;
+                        bestDistance = critter.distance;
+                    }
+                }
+            }
+            if (pTarget)
+            {
+                tower.shootDelay = tower.shootInterval;
+                damageCritter(pTarget, tower.damage);
+            }
+        }
+    }
+
+    // End wave condition
     if (critters.empty() && spawners.empty())
     {
         waveDelay -= dt;
@@ -402,6 +496,9 @@ void updateWave(float dt)
             }
         }
     }
+
+    // Interest
+    cash += cash * 0.003f * dt;
 }
 
 void update()
@@ -425,7 +522,8 @@ void update()
 
     if (OInputJustPressed(OKey1))
     {
-        placingTower = TOWER_ARROW;
+        if (cash >= 100)
+            placingTower = TOWER_ARROW;
     }
 
     if (placingTower != TOWER_NONE)
@@ -434,14 +532,31 @@ void update()
         {
             placingTower = TOWER_NONE;
         }
+        else if (OInputJustPressed(OMouse1))
+        {
+            if (placingPos.x == -1 && placingPos.y == -1)
+            {
+                placingTower = TOWER_NONE;
+            }
+            else
+            {
+                // Place tower here
+                addTower(placingTower, placingPos);
+            }
+        }
         else
         {
             placingPos = { -1, -1 };
             auto mousePosOnMap = Vector2::Transform(oInput->mousePosf, invMapTransform);
             if (mousePosOnMap.x >= 0.0f && mousePosOnMap.y >= 0.0f && mousePosOnMap.x < (float)MAP_SIZE && mousePosOnMap.y < (float)MAP_SIZE)
             {
-                placingPos.x = (int)mousePosOnMap.x;
-                placingPos.y = (int)mousePosOnMap.y;
+                int x = (int)mousePosOnMap.x;
+                int y = (int)mousePosOnMap.y;
+                if (MAP_TOWERS[y * MAP_SIZE + x] == TOWER_NONE)
+                {
+                    placingPos.x = x;
+                    placingPos.y = y;
+                }
             }
         }
     }
@@ -492,6 +607,16 @@ void render()
         for (const auto& critter : critters)
         {
             critter.drawShape(pPrimitiveBatch, critter.position, critter.size, critter.color);
+        }
+        pPrimitiveBatch->end();
+    }
+
+    // Draw towers
+    {
+        pPrimitiveBatch->begin(OPrimitiveLineList, nullptr, mapTransform);
+        for (const auto& tower : towers)
+        {
+            tower.drawShape(pPrimitiveBatch, tower.position, tower.size, tower.color);
         }
         pPrimitiveBatch->end();
     }
