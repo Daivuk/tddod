@@ -37,11 +37,20 @@ list(APPEND includes PUBLIC ./src/)
 # Third parties
 #------------------------------------------------------------------------------
 
+# OpenGL
+find_package(OpenGL REQUIRED)
+list(APPEND includes PUBLIC ${OPENGL_INCLUDE_DIR})
+list(APPEND libs ${OPENGL_LIBRARIES})
+
 # SDL2
 set(HAVE_LIBC ON)
 add_subdirectory(./thirdparty/SDL-mirror/)
 list(APPEND libs SDL2-static)
 list(APPEND includes PUBLIC ./thirdparty/SDL-mirror/include/)
+
+# gl3w
+list(APPEND includes PUBLIC ./thirdparty/gl3w/include/)
+list(APPEND srcthirdparty ./thirdparty/gl3w/src/gl3w.c)
 
 #------------------------------------------------------------------------------
 # Assets

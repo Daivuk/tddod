@@ -1,6 +1,11 @@
 REM Clone onut
 git submodule update --init
 
+REM pre-process assets
+cd contentProcessor
+node main.js
+cd ..
+
 REM Create build dir
 mkdir build
 
