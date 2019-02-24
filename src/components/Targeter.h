@@ -3,7 +3,7 @@
 
 #include "ecs.h"
 
-typedef void(*SHOOT_FN)(Entity, Entity);
+typedef void(*SHOOT_FN)(Registry &, Entity, Entity);
 
 struct Targeter
 {

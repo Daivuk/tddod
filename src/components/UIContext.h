@@ -5,7 +5,8 @@
 
 struct UIContext
 {
-
+    Entity hover;
+    Entity down;
 };
 
 #endif

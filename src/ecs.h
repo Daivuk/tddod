@@ -8,6 +8,4 @@ using Entity = Registry::entity_type;
 
 static const Entity NULL_ENTITY = entt::null;
 
-extern Registry g_registry;
-
 #endif

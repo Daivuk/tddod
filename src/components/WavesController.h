@@ -10,7 +10,6 @@ struct WavesController
     int currentWaveIndex;
     int waveCount;
     Wave *pWaves;
-    Entity waveLabel;
 };
 
 #endif

@@ -3,7 +3,7 @@
 
 #include "ecs.h"
 
-typedef void(*UPGRADE_FN)(Entity entity);
+typedef void(*UPGRADE_FN)(Registry &, Entity);
 
 struct Upgradable
 {

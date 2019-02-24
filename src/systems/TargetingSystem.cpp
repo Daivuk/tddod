@@ -32,7 +32,7 @@ void updateTargetingSystem(Registry &registry, float dt)
             // Shoot at target
             registry.remove<FindTarget>(entity);
             registry.assign<Cooldown>(entity, targeter.cooldown);
-            targeter.shoot(targetEntity, entity);
+            targeter.shoot(registry, targetEntity, entity);
         }
     });
 }

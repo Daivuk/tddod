@@ -3,7 +3,7 @@
 
 struct Position;
 
-typedef void(*PLACE_FN)(const Position &);
+typedef void(*PLACE_FN)(Registry &, const Position &);
 
 struct Placer
 {

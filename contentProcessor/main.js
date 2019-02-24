@@ -6,7 +6,10 @@ let fileData =
 #ifndef DATA_H_INCLUDED
 #define DATA_H_INCLUDED
 
-#include "components.h"
+#include "components/Position.h"
+#include "components/TexCoord.h"
+#include "components/Wave.h"
+#include "helpers/CritterHelpers.h"
 
 `
 
@@ -187,35 +190,35 @@ for (let y = 0; y < png.height; ++y)
         if (r == 255 && g == 0 && b == 255)
         {
             wave.push({
-                fn: "createFlyer",
+                fn: "Critters::createFlyer",
                 time: x / 4
             })
         }
         if (r == 255 && g == 255 && b == 0)
         {
             wave.push({
-                fn: "createBehemoth",
+                fn: "Critters::createBehemoth",
                 time: x / 4
             })
         }
         else if (b == 255)
         {
             wave.push({
-                fn: "createPeasant",
+                fn: "Critters::createPeasant",
                 time: x / 4
             })
         }
         else if (g == 255)
         {
             wave.push({
-                fn: "createWarrior",
+                fn: "Critters::createWarrior",
                 time: x / 4
             })
         }
         else if (r == 255)
         {
             wave.push({
-                fn: "createThief",
+                fn: "Critters::createThief",
                 time: x / 4
             })
         }
@@ -235,7 +238,7 @@ for (let i = 0; i < waves.length; ++i)
     ${wave.map(spawn => `${(spawn.time).toFixed(2)}f`).join(`, `)}
 };
 `
-    fileData += `static const CRITTER_FACTORY WAVE_${i}_FACTORIES[] = {
+    fileData += `static const CREATE_CRITTER_FN WAVE_${i}_FACTORIES[] = {
     ${wave.map(spawn => `${spawn.fn}`).join(`, `)}
 };
 `

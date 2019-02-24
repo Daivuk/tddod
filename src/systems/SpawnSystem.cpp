@@ -24,7 +24,7 @@ void updateSpawnSystem(Registry &registry, float dt)
                 if (spawnFn)
                 {
                     // Spawn
-                    spawnFn(position);
+                    spawnFn(registry, position);
                 }
                 else
                 {

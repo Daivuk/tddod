@@ -1,3 +1,4 @@
+#include "constants.h"
 #include "data.h"
 #include "EndWaveDelaySystem.h"
 #include "labels.h"
@@ -7,6 +8,7 @@
 #include "components/Spawner.h"
 #include "components/Wave.h"
 #include "components/WavesController.h"
+#include "helpers/WaveHelpers.h"
 
 void updateEndWaveDelaySystem(Registry &registry, float dt)
 {
@@ -23,21 +25,12 @@ void updateEndWaveDelaySystem(Registry &registry, float dt)
             auto nextWaveIndex = wavesController.currentWaveIndex + 1;
             if (nextWaveIndex >= WAVE_COUNT)
             {
-                g_registry.destroy(entity); // No more waves
+                registry.destroy(entity); // No more waves
             }
             else
             {
                 wavesController.currentWaveIndex = nextWaveIndex;
-                    
-                g_registry.assign<EndWaveChecker>(entity);
-
-                // Create next wave's spawner
-                {
-                    auto spawner = registry.create();
-                    g_registry.assign<Wave>(spawner, Wave{ wavesController.pWaves[wavesController.currentWaveIndex] });
-                    g_registry.assign<Position>(spawner, WAVE_START_POSITION);
-                    g_registry.assign<Spawner>(spawner, WAVE_START_TIME);
-                }
+                Waves::startWave(registry, wavesController.currentWaveIndex);
             }
 
             return;

@@ -4,12 +4,19 @@
 #include "ecs.h"
 
 #pragma warning(push)
-#pragma warning(disable: 4307) // EnTT throws a warning with the hashing here.
+#pragma warning(disable: 4307) // EnTT throws a warning with the hashing here in VS2017
+
+#define LABEL(__name__) using __name__ = entt::label<#__name__ ## _hs>
 
 namespace Label
 {
-    using WAVES_CONTROLLER = entt::label<"WAVES"_hs>;
-    using RESOURCES = entt::label<"RESOURCES"_hs>;
+    LABEL(WAVES_CONTROLLER);
+    LABEL(RESOURCES);
+    LABEL(HUD);
+    LABEL(PLAYER);
+    LABEL(UI_CONTEXT);
+    LABEL(INPUTS);
+    LABEL(TOOLTIP);
 };
 
 #pragma warning(pop)

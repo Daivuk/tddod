@@ -1,13 +1,13 @@
 #ifndef WAVE_H_INCLUDED
 #define WAVE_H_INCLUDED
 
-#include "critterFactory.h"
+#include "helpers/CritterHelpers.h"
 
 struct Wave
 {
     int count;
     const float *pTimes;
-    const CRITTER_FACTORY *pCritterFactories;
+    const CREATE_CRITTER_FN *pCritterFactories;
 };
 
 #endif
