@@ -1,3 +1,9 @@
 [submodule "thirdparty/SDL-mirror"]
 	path = thirdparty/SDL-mirror
 	url = https://github.com/spurious/SDL-mirror.git
+[submodule "thirdparty/entt"]
+	path = thirdparty/entt
+	url = https://github.com/skypjack/entt.git
+[submodule "thirdparty/stb"]
+	path = thirdparty/stb
+	url = https://github.com/nothings/stb.git

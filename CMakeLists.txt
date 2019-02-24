@@ -30,8 +30,13 @@ endif()
 
 # Project files
 file(GLOB srcfiles ./src/*.*)
+file(GLOB componentsfiles ./src/components/*.*)
+file(GLOB systemsfiles ./src/systems/*.*)
+file(GLOB helpersfiles ./src/helpers/*.*)
 
 list(APPEND includes PUBLIC ./src/)
+# list(APPEND includes PUBLIC ./src/components/)
+# list(APPEND includes PUBLIC ./src/systems/)
 
 #------------------------------------------------------------------------------
 # Third parties
@@ -52,15 +57,21 @@ list(APPEND includes PUBLIC ./thirdparty/SDL-mirror/include/)
 list(APPEND includes PUBLIC ./thirdparty/gl3w/include/)
 list(APPEND srcthirdparty ./thirdparty/gl3w/src/gl3w.c)
 
+# EnTT
+list(APPEND includes PUBLIC ./thirdparty/entt/src/)
+
+# stb
+list(APPEND includes PUBLIC ./thirdparty/stb/)
+
 #------------------------------------------------------------------------------
 # Assets
 #------------------------------------------------------------------------------
 
 file(GLOB files RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
-    "${CMAKE_CURRENT_SOURCE_DIR}/assets/*/*.*")
+    "${CMAKE_CURRENT_SOURCE_DIR}/assets/*.*")
 foreach(file ${files})
     message("configuring ${file}")
-    configure_file(${file} ${CMAKE_BINARY_DIR}/${file} COPYONLY)
+    configure_file(${file} ${CMAKE_CURRENT_BINARY_DIR}/${file} COPYONLY)
 endforeach()
 
 #------------------------------------------------------------------------------
@@ -70,7 +81,14 @@ endforeach()
 # tddod.exe, use WinMain on Windows
 source_group("thirdparty" FILES ${srcthirdparty})
 source_group("game" FILES ${srcfiles})
-add_executable(tddod WIN32 ${srcfiles} ${srcthirdparty})
+source_group("components" FILES ${componentsfiles})
+source_group("systems" FILES ${systemsfiles})
+source_group("helpers" FILES ${helpersfiles})
+add_executable(tddod WIN32 ${srcfiles} ${componentsfiles} ${systemsfiles} ${helpersfiles} ${srcthirdparty})
+
+# Work dir
+set_property(TARGET tddod PROPERTY
+    VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/")
 
 # Lib/Headers
 target_include_directories(tddod ${includes})

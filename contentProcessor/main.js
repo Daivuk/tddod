@@ -54,7 +54,6 @@ function colf(str)
 {
     return `${(parseInt(str, 16) / 255).toFixed(6)}f`
 }
-
 // Reference: https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb
 function hexToRgba(hex)
 {
@@ -155,6 +154,118 @@ nodes.push(endPos)
 fileData += `static const Position WAYPOINTS[] = {
     ${nodes.map(node => `{${node.x}.5f, ${node.y}.5f}`).join(`,\n    `)}
 };
+
+static const int WAYPOINT_COUNT = ${nodes.length};
+
+`
+
+fileData += `static const Position AIR_WAYPOINTS[] = {
+    {${startPos.x}.5f, ${startPos.y}.5f},
+    {${endPos.x}.5f, ${endPos.y}.5f}
+};
+
+static const int AIR_WAYPOINT_COUNT = 2;
+
+`
+
+// Generate waves
+let waves = []
+png = PNG.sync.read(fs.readFileSync("rawAssets/waves.png"));
+for (let y = 0; y < png.height; ++y)
+{
+    let x = 0
+    let wave = []
+    for (; x < png.width; ++x)
+    {
+        let k = (y * png.width + x) * 4
+        let r = png.data[k + 0];
+        let g = png.data[k + 1];
+        let b = png.data[k + 2];
+
+        if (x == 0 && r == 0 && g == 0 && b == 0) break
+
+        if (r == 255 && g == 0 && b == 255)
+        {
+            wave.push({
+                fn: "createFlyer",
+                time: x / 4
+            })
+        }
+        if (r == 255 && g == 255 && b == 0)
+        {
+            wave.push({
+                fn: "createBehemoth",
+                time: x / 4
+            })
+        }
+        else if (b == 255)
+        {
+            wave.push({
+                fn: "createPeasant",
+                time: x / 4
+            })
+        }
+        else if (g == 255)
+        {
+            wave.push({
+                fn: "createWarrior",
+                time: x / 4
+            })
+        }
+        else if (r == 255)
+        {
+            wave.push({
+                fn: "createThief",
+                time: x / 4
+            })
+        }
+    }
+    if (wave.length == 0) break
+    wave.push({
+        fn: "nullptr",
+        time: wave[wave.length - 1].time
+    })
+    waves.push(wave)
+}
+
+for (let i = 0; i < waves.length; ++i)
+{
+    let wave = waves[i]
+    fileData += `static const float WAVE_${i}_TIMES[] = {
+    ${wave.map(spawn => `${(spawn.time).toFixed(2)}f`).join(`, `)}
+};
+`
+    fileData += `static const CRITTER_FACTORY WAVE_${i}_FACTORIES[] = {
+    ${wave.map(spawn => `${spawn.fn}`).join(`, `)}
+};
+`
+}
+
+fileData += `static const Wave WAVES[] = {
+    ${waves.map((wave, i) => `{${wave.length}, WAVE_${i}_TIMES, WAVE_${i}_FACTORIES}`).join(`,\n    `)}
+};
+
+static const int WAVE_COUNT = ${waves.length};
+static const Position WAVE_START_POSITION = {${startPos.x + .5}f, ${startPos.y + .5}f};
+
+`
+
+// Font
+png = PNG.sync.read(fs.readFileSync("../assets/font.png"));
+fileData += `static const TexCoord FONT[][2] = {
+`
+let base = '!'.charCodeAt(0)
+let len = '~'.charCodeAt(0)
+let v = 20 / png.height
+for (let i = base; i < len; ++i)
+{
+    let c = i - base
+    fileData += `    {{(float)${(c * 20) / png.width}, 0.0f}, {(float)${((c + 1) * 20) / png.width}, (float)${v}}},\n`
+}
+fileData += `};
+static const int FIRST_CHAR = '!';
+static const int LAST_CHAR = '~';
+static const TexCoord WHITE_UV = {(float)${10 / png.width}, (float)${26 / png.height}};
 
 `
 
