@@ -3,6 +3,8 @@
 
 #include <GL/gl3w.h>
 
+#include <vector>
+
 #include "ecs.h"
 
 #include "components/Color.h"
@@ -24,7 +26,7 @@ struct VertexPTC
 
 namespace Rendering
 {
-    GLuint createProgram(const GLchar *vs, const GLchar *ps);
+    GLuint createProgram(const GLchar *vs, const GLchar *ps, const std::vector<const char *> &attribs);
     GLuint createTexture(const char *filename);
     GLuint createVertexBuffer();
     GLuint createVertexBuffer(GLsizeiptr size, const void *data);

@@ -1,32 +1,55 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
+#include <string>
+
 #include "constants.h"
 #include "data.h"
 #include "labels.h"
 
 #include "components/Resources.h"
+#include "helpers/RenderingHelpers.h"
 
-#include "RenderingHelpers.h"
+static void checkShader(GLuint handle)
+{
+    GLint bResult;
+    glGetShaderiv(handle, GL_COMPILE_STATUS, &bResult);
+    if (bResult == GL_FALSE)
+    {
+        GLchar infoLog[1024];
+        glGetShaderInfoLog(handle, 1023, NULL, infoLog);
+        printf("shader compile failed: %s\n", infoLog);
+        assert(false);
+    }
+}
 
 namespace Rendering
 {
-    GLuint createProgram(const GLchar *vs, const GLchar *ps)
+    GLuint createProgram(const GLchar *vs, const GLchar *ps, const std::vector<const char *> &attribs)
     {
-        const GLchar *vertex_shader_with_version[2]     = {"#version 130\n", vs};
-        const GLchar *fragment_shader_with_version[2]   = {"#version 130\n", ps};
+        GLint bResult;
+        const GLchar *vertex_shader_with_version[2]     = {"#version 120\n", vs};
+        const GLchar *fragment_shader_with_version[2]   = {"#version 120\n", ps};
 
         auto vertHandle = glCreateShader(GL_VERTEX_SHADER);
         glShaderSource(vertHandle, 2, vertex_shader_with_version, NULL);
         glCompileShader(vertHandle);
+        checkShader(vertHandle);
 
         auto fragHandle = glCreateShader(GL_FRAGMENT_SHADER);
         glShaderSource(fragHandle, 2, fragment_shader_with_version, NULL);
         glCompileShader(fragHandle);
+        checkShader(fragHandle);
 
         GLuint program = glCreateProgram();
         glAttachShader(program, vertHandle);
         glAttachShader(program, fragHandle);
+        int i = 0;
+        for (auto attrib : attribs)
+        {
+            glBindAttribLocation(program, i, attrib);
+            ++i;
+        }
         glLinkProgram(program);
 
         return program;
@@ -97,9 +120,9 @@ namespace Rendering
         const GLfloat ortho_projection[4][4] =
         {
             { S / (R - L),              0.0f,                   0.0f,   0.0f },
-        { 0.0f,                     S / (T - B),            0.0f,   0.0f },
-        { 0.0f,                     0.0f,                  -1.0f,   0.0f },
-        { (R + L) / (L - R) + X,    (T + B) / (B - T) - Y,  0.0f,   1.0f },
+            { 0.0f,                     S / (T - B),            0.0f,   0.0f },
+            { 0.0f,                     0.0f,                  -1.0f,   0.0f },
+            { (R + L) / (L - R) + X,    (T + B) / (B - T) - Y,  0.0f,   1.0f },
         };
         Rendering::setTransform(registry, &ortho_projection[0][0]);
 

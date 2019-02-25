@@ -94,8 +94,8 @@ namespace Game
             registry.assign<Label::RESOURCES>(entt::tag_t{}, entity);
 
             Resources resources;
-            resources.programPC = Rendering::createProgram(PC_VS, PC_PS);
-            resources.programPTC = Rendering::createProgram(PTC_VS, PTC_PS);
+            resources.programPC = Rendering::createProgram(PC_VS, PC_PS, {"Position", "Color"});
+            resources.programPTC = Rendering::createProgram(PTC_VS, PTC_PS, {"Position", "TexCoord", "Color"});
             resources.fontTexture = Rendering::createTexture("assets/font.png");
             resources.vertexBuffer = Rendering::createVertexBuffer();
             resources.pPCVertices = new VertexPC[MAX_VERTICES];

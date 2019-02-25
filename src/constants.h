@@ -37,9 +37,9 @@ static const int CANNON_TOWER_LVL3_PRICE = 1000;
 // Shaders
 static const char *PC_VS =
     "uniform mat4 ProjMtx;\n"
-    "in vec2 Position;\n"
-    "in vec4 Color;\n"
-    "out vec4 Frag_Color;\n"
+    "attribute vec2 Position;\n"
+    "attribute vec4 Color;\n"
+    "varying vec4 Frag_Color;\n"
     "void main()\n"
     "{\n"
     "    Frag_Color = Color;\n"
@@ -47,20 +47,19 @@ static const char *PC_VS =
     "}\n";
 
 static const char *PC_PS =
-    "in vec4 Frag_Color;\n"
-    "out vec4 Out_Color;\n"
+    "varying vec4 Frag_Color;\n"
     "void main()\n"
     "{\n"
-    "    Out_Color = Frag_Color;\n"
+    "    gl_FragColor = Frag_Color;\n"
     "}\n";
 
 static const char *PTC_VS =
     "uniform mat4 ProjMtx;\n"
-    "in vec2 Position;\n"
-    "in vec2 TexCoord;\n"
-    "in vec4 Color;\n"
-    "out vec2 Frag_TexCoord;\n"
-    "out vec4 Frag_Color;\n"
+    "attribute vec2 Position;\n"
+    "attribute vec2 TexCoord;\n"
+    "attribute vec4 Color;\n"
+    "varying vec2 Frag_TexCoord;\n"
+    "varying vec4 Frag_Color;\n"
     "void main()\n"
     "{\n"
     "    gl_Position = ProjMtx * vec4(Position.xy, 0, 1);\n"
@@ -69,14 +68,13 @@ static const char *PTC_VS =
     "}\n";
 
 static const char *PTC_PS =
-    "in vec2 Frag_TexCoord;\n"
-    "in vec4 Frag_Color;\n"
-    "out vec4 Out_Color;\n"
+    "varying vec2 Frag_TexCoord;\n"
+    "varying vec4 Frag_Color;\n"
     "uniform sampler2D Texture;\n"
     "void main()\n"
     "{\n"
     "    vec4 diffuse = texture2D(Texture, Frag_TexCoord);\n"
-    "    Out_Color = diffuse * Frag_Color;\n"
+    "    gl_FragColor = diffuse * Frag_Color;\n"
     "}\n";
 
 #include "data.h"

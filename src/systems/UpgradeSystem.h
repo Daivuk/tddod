@@ -1,5 +1,5 @@
 #ifndef UPGRADESYSTEM_H_INCLUDED
-#define UGPRADESYSTEM_H_INCLUDED
+#define UPGRADESYSTEM_H_INCLUDED
 
 #include "ecs.h"
 
