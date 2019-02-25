@@ -21,6 +21,7 @@ void updateUpgradeSystem(Registry &registry)
             if (Money::withdraw(registry, registry.attachee<Label::PLAYER>(), (int)upgradable.cost))
             {
                 upgradable.upgrade(registry, uiContext.hover);
+                inputs.upgradeKeyState = InputState::Down; // Consume input
             }
         }
     }

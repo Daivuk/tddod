@@ -22,6 +22,7 @@ void updateClickSystem(Registry &registry)
         {
             auto &clickable = registry.get<Clickable>(uiContext.down);
             if (clickable.onClick) clickable.onClick(registry, uiContext.down);
+            inputs.leftButtonState = InputState::Up; // Reset so it doesn't trigger again
         }
         uiContext.down = NULL_ENTITY;
     }
