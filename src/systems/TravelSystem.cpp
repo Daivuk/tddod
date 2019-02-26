@@ -5,7 +5,7 @@
 
 void updateTravelSystem(Registry &registry, float dt)
 {
-    registry.view<Traveler, Position>().each([&registry, dt](auto entity, Traveler& traveler, Position& position)
+    registry.view<Traveler, Position>().each([&registry, dt](auto entity, Traveler &traveler, Position &position)
     {
         auto i = traveler.nextWaypointIndex;
         auto curPosition = position;

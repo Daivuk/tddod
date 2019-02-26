@@ -40,6 +40,7 @@
 #include "systems/TargetingSystem.h"
 #include "systems/TextRenderSystem.h"
 #include "systems/ToolTipSystem.h"
+#include "systems/TravelerTargetScoreSystem.h"
 #include "systems/TravelSystem.h"
 #include "systems/UpgradeSystem.h"
 
@@ -178,6 +179,7 @@ namespace Game
         updateEndWaveCheckSystem(registry);
         updateEndWaveDelaySystem(registry, dt);
         updateTravelSystem(registry, dt);
+        updateTravelerTargetScoreSystem(registry);
         updateInvestmentSystem(registry, dt);
         updateCooldownSystem(registry, dt);
         updateTargetingSystem(registry, dt);

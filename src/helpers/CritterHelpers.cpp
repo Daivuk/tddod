@@ -9,6 +9,7 @@
 #include "components/ShapeRenderer.h"
 #include "components/Size.h"
 #include "components/Target.h"
+#include "components/TargetScore.h"
 #include "components/Traveler.h"
 #include "helpers/CritterHelpers.h"
 #include "helpers/ShapeHelpers.h"
@@ -33,6 +34,7 @@ namespace Critters
         registry.assign<Bank>(entity, 10.0f);
         registry.assign<Target>(entity, TargetMask::GROUND);
         registry.assign<Hoverable>(entity);
+        registry.assign<TargetScore>(entity, 0.0f);
     }
 
     void createWarrior(Registry &registry, const Position& position)
@@ -53,6 +55,7 @@ namespace Critters
         registry.assign<Bank>(entity, 10.0f);
         registry.assign<Target>(entity, TargetMask::GROUND);
         registry.assign<Hoverable>(entity);
+        registry.assign<TargetScore>(entity, 0.0f);
     }
 
     void createThief(Registry &registry, const Position& position)
@@ -73,6 +76,7 @@ namespace Critters
         registry.assign<Bank>(entity, 5.0f);
         registry.assign<Target>(entity, TargetMask::GROUND);
         registry.assign<Hoverable>(entity);
+        registry.assign<TargetScore>(entity, 0.0f);
     }
 
     void createFlyer(Registry &registry, const Position& position)
@@ -93,6 +97,7 @@ namespace Critters
         registry.assign<Bank>(entity, 10.0f);
         registry.assign<Target>(entity, TargetMask::AIR);
         registry.assign<Hoverable>(entity);
+        registry.assign<TargetScore>(entity, 0.0f);
     }
 
     void createBehemoth(Registry &registry, const Position& position)
@@ -113,5 +118,6 @@ namespace Critters
         registry.assign<Bank>(entity, 50.0f);
         registry.assign<Target>(entity, TargetMask::GROUND);
         registry.assign<Hoverable>(entity);
+        registry.assign<TargetScore>(entity, 0.0f);
     }
 };
