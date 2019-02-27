@@ -40,7 +40,9 @@ static void shootGunLvl3(Registry &registry, Entity target, Entity from)
 
 static void shootSlowLvl1(Registry &registry, Entity target, Entity from)
 {
-
+    // Instant ray. Spawn fx
+    Shooting::createBullet(registry, registry.get<Position>(from), registry.get<Position>(target), { 0, 1, 0, 1 });
+    Shooting::slow(registry, registry.get<Position>(target), 0.5f, 0.5f);
 }
 
 static void shootRocketLvl1(Registry &registry, Entity target, Entity from)
@@ -114,7 +116,7 @@ namespace Tower
         registry.assign<TextRenderer>(entity, "S", Color{ 0, 0, 0, 0 }, 0.5f);
         registry.assign<ShapeRenderer>(entity, Shape::drawBox);
         registry.assign<Name>(entity, "Slow Turret");
-        registry.assign<Targeter>(entity, (uint8_t)(TargetMask::GROUND | TargetMask::AIR), 210.0f / 60.0f, 1.0f, shootSlowLvl1);
+        registry.assign<Targeter>(entity, (uint8_t)(TargetMask::GROUND | TargetMask::AIR), 210.0f / 60.0f, 2.5f, shootSlowLvl1);
         registry.assign<FindTarget>(entity);
         registry.assign<Hoverable>(entity);
     }

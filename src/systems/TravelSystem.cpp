@@ -1,11 +1,12 @@
 #include "TravelSystem.h"
 
 #include "components/Position.h"
+#include "components/Speed.h"
 #include "components/Traveler.h"
 
 void updateTravelSystem(Registry &registry, float dt)
 {
-    registry.view<Traveler, Position>().each([&registry, dt](auto entity, Traveler &traveler, Position &position)
+    registry.view<Traveler, Position, Speed>().each([&registry, dt](auto entity, Traveler &traveler, Position &position, const Speed &speed)
     {
         auto i = traveler.nextWaypointIndex;
         auto curPosition = position;
@@ -13,7 +14,7 @@ void updateTravelSystem(Registry &registry, float dt)
         auto dx = nextPosition.x - curPosition.x;
         auto dy = nextPosition.y - curPosition.y;
         auto dis = std::sqrtf(dx * dx + dy * dy);
-        auto newDis = dis - traveler.speed * dt;
+        auto newDis = dis - speed.speed * dt;
 
         while (newDis <= 0.0f)
         {

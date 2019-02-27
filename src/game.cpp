@@ -33,9 +33,11 @@
 #include "systems/PhysicSystem.h"
 #include "systems/PlaceSystem.h"
 #include "systems/PointRenderSystem.h"
+#include "systems/ResetSpeedSystem.h"
 #include "systems/ShapeRenderSystem.h"
 #include "systems/SizePulseAnimSystem.h"
 #include "systems/SpawnSystem.h"
+#include "systems/SpeedNerfSystem.h"
 #include "systems/StaticLinesRenderSystem.h"
 #include "systems/TargetingSystem.h"
 #include "systems/TextRenderSystem.h"
@@ -178,6 +180,8 @@ namespace Game
         updateSpawnSystem(registry, dt);
         updateEndWaveCheckSystem(registry);
         updateEndWaveDelaySystem(registry, dt);
+        updateResetSpeedSystem(registry);
+        updateSpeedNerfSystem(registry, dt);
         updateTravelSystem(registry, dt);
         updateTravelerTargetScoreSystem(registry);
         updateInvestmentSystem(registry, dt);

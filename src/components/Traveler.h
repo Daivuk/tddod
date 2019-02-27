@@ -5,7 +5,6 @@ struct Position;
 
 struct Traveler
 {
-    float speed;
     int nextWaypointIndex;
     int waypointCount;
     Position *pWaypoints;

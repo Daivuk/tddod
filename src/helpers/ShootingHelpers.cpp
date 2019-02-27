@@ -9,12 +9,19 @@
 #include "components/LineRenderer.h"
 #include "components/Position.h"
 #include "components/ShapeRenderer.h"
+#include "components/SpeedNerf.h"
+#include "components/Target.h"
 #include "helpers/BankHelpers.h"
 #include "helpers/ParticleHelpers.h"
 #include "helpers/ShootingHelpers.h"
 
 namespace Shooting
 {
+    void createSlowBolt(Registry &registry, const Position& from, const Position& to, const Color& color)
+    {
+
+    }
+
     void createBullet(Registry &registry, const Position& from, const Position& to, const Color& color)
     {
         // Left vector
@@ -104,5 +111,23 @@ namespace Shooting
                 kill(registry, target);
             }
         }
+    }
+
+    void slow(Registry &registry, const Position &hitPosition, float radius, float speedMult)
+    {
+        auto rangeSqr = radius * radius;
+        registry.view<Target, Position>().each([&registry, &hitPosition, radius, speedMult, rangeSqr](auto entity, const Target &target, const Position &position)
+        {
+            if (target.mask & TargetMask::GROUND) // Only ground are affected
+            {
+                auto dx = position.x - hitPosition.x;
+                auto dy = position.y - hitPosition.y;
+                auto distSqr = dx * dx + dy * dy;
+                if (distSqr <= rangeSqr)
+                {
+                    registry.accommodate<SpeedNerf>(entity, 2.333f, speedMult);
+                }
+            }
+        });
     }
 };
