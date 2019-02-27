@@ -1,3 +1,7 @@
+/*
+    Singleton component, Tag::Input, for holding input states.
+*/
+
 #ifndef INPUTS_H_INCLUDED
 #define INPUTS_H_INCLUDED
 

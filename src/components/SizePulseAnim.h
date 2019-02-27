@@ -1,3 +1,7 @@
+/*
+    Animates Size component.
+*/
+
 #ifndef SIZEPULSEANIM_H_INCLUDED
 #define SIZEPULSEANIM_H_INCLUDED
 

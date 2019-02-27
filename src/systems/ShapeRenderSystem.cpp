@@ -1,4 +1,4 @@
-#include "labels.h"
+#include "tags.h"
 #include "ShapeRenderSystem.h"
 
 #include "components/Color.h"
@@ -11,11 +11,11 @@
 
 void updateShapeRenderSystem(Registry &registry)
 {
-    Resources &resources = registry.get<Resources>(registry.attachee<Label::RESOURCES>());
+    Resources &resources = registry.get<Resources>(registry.attachee<Tag::Resources>());
 
     auto pVertices = resources.pPCVertices;
 
-    registry.view<ShapeRenderer, Position, Size, Color>().each([&pVertices](auto entity, const ShapeRenderer& shapeRenderer, const Position& position, const Size& size, const Color& color)
+    registry.view<ShapeRenderer, Position, Size, Color>().each([&pVertices](auto entity, const ShapeRenderer &shapeRenderer, const Position &position, const Size &size, const Color &color)
     {
         pVertices += shapeRenderer.drawShape(pVertices, position, size.w, size.h, color);
     });

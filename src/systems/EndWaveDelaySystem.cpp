@@ -1,7 +1,7 @@
 #include "constants.h"
 #include "data.h"
 #include "EndWaveDelaySystem.h"
-#include "labels.h"
+#include "tags.h"
 
 #include "components/EndWaveDelay.h"
 #include "components/Position.h"
@@ -20,7 +20,7 @@ void updateEndWaveDelaySystem(Registry &registry, float dt)
         {
             registry.remove<EndWaveDelay>(entity);
 
-            auto wavesControllerEntity = registry.attachee<Label::WAVES_CONTROLLER>();
+            auto wavesControllerEntity = registry.attachee<Tag::WavesController>();
             auto &wavesController = registry.get<WavesController>(wavesControllerEntity);
             auto nextWaveIndex = wavesController.currentWaveIndex + 1;
             if (nextWaveIndex >= WAVE_COUNT)

@@ -1,3 +1,7 @@
+/*
+    Animates Color component
+*/
+
 #ifndef COLORANIM_H_INCLUDED
 #define COLORANIM_H_INCLUDED
 

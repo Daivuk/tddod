@@ -1,3 +1,7 @@
+/*
+    Draw a shape at Position with Color.
+*/
+
 #ifndef SHAPERENDERER_H_INCLUDED
 #define SHAPERENDERER_H_INCLUDED
 

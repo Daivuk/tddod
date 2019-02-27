@@ -18,7 +18,7 @@
 
 namespace Critters
 {
-    void createPeasant(Registry &registry, const Position& position)
+    void createPeasant(Registry &registry, const Position &position)
     {
         auto entity = registry.create();
 
@@ -41,7 +41,7 @@ namespace Critters
         registry.assign<Speed>(entity, speed);
     }
 
-    void createWarrior(Registry &registry, const Position& position)
+    void createWarrior(Registry &registry, const Position &position)
     {
         auto entity = registry.create();
 
@@ -64,7 +64,7 @@ namespace Critters
         registry.assign<Speed>(entity, speed);
     }
 
-    void createThief(Registry &registry, const Position& position)
+    void createThief(Registry &registry, const Position &position)
     {
         auto entity = registry.create();
 
@@ -87,7 +87,7 @@ namespace Critters
         registry.assign<Speed>(entity, speed);
     }
 
-    void createFlyer(Registry &registry, const Position& position)
+    void createFlyer(Registry &registry, const Position &position)
     {
         auto entity = registry.create();
 
@@ -110,7 +110,7 @@ namespace Critters
         registry.assign<Speed>(entity, speed);
     }
 
-    void createBehemoth(Registry &registry, const Position& position)
+    void createBehemoth(Registry &registry, const Position &position)
     {
         auto entity = registry.create();
 

@@ -5,7 +5,7 @@
 
 #include "constants.h"
 #include "data.h"
-#include "labels.h"
+#include "tags.h"
 
 #include "components/Resources.h"
 #include "helpers/RenderingHelpers.h"
@@ -95,7 +95,7 @@ namespace Rendering
 
     void setTransform(Registry &registry, const float *matrix)
     {
-        Resources &resources = registry.get<Resources>(registry.attachee<Label::RESOURCES>());
+        Resources &resources = registry.get<Resources>(registry.attachee<Tag::Resources>());
         {
             glUseProgram(resources.programPC);
             auto uniform = glGetUniformLocation(resources.programPC, "ProjMtx");
@@ -146,7 +146,7 @@ namespace Rendering
 
     void prepareForPC(Registry &registry)
     {
-        Resources &resources = registry.get<Resources>(registry.attachee<Label::RESOURCES>());
+        Resources &resources = registry.get<Resources>(registry.attachee<Tag::Resources>());
 
         glDisable(GL_TEXTURE_2D);
         glUseProgram(resources.programPC);
@@ -157,7 +157,7 @@ namespace Rendering
 
     static void drawPC(Registry &registry, const VertexPC *pVertices, int count, GLenum mode)
     {
-        Resources &resources = registry.get<Resources>(registry.attachee<Label::RESOURCES>());
+        Resources &resources = registry.get<Resources>(registry.attachee<Tag::Resources>());
 
         glBindBuffer(GL_ARRAY_BUFFER, resources.vertexBuffer);
         glBufferData(GL_ARRAY_BUFFER, sizeof(VertexPC) * count, pVertices, GL_DYNAMIC_DRAW);
@@ -183,7 +183,7 @@ namespace Rendering
 
     void prepareForPTC(Registry &registry)
     {
-        Resources &resources = registry.get<Resources>(registry.attachee<Label::RESOURCES>());
+        Resources &resources = registry.get<Resources>(registry.attachee<Tag::Resources>());
 
         glEnable(GL_TEXTURE_2D);
         glActiveTexture(GL_TEXTURE0);
@@ -195,7 +195,7 @@ namespace Rendering
 
     static void drawPTC(Registry &registry, const VertexPTC *pVertices, int count, GLenum mode)
     {
-        Resources &resources = registry.get<Resources>(registry.attachee<Label::RESOURCES>());
+        Resources &resources = registry.get<Resources>(registry.attachee<Tag::Resources>());
 
         glBindBuffer(GL_ARRAY_BUFFER, resources.vertexBuffer);
         glBufferData(GL_ARRAY_BUFFER, sizeof(VertexPTC) * count, pVertices, GL_DYNAMIC_DRAW);
@@ -220,7 +220,7 @@ namespace Rendering
         drawPTC(registry, pVertices, count, GL_QUADS);
     }
 
-    int drawRect(VertexPTC *pVertices, float x, float y, float w, float h, const Color& color)
+    int drawRect(VertexPTC *pVertices, float x, float y, float w, float h, const Color &color)
     {
         pVertices[0].position.x = x;
         pVertices[0].position.y = y;
@@ -246,7 +246,7 @@ namespace Rendering
         return 4;
     }
 
-    int drawRect(VertexPC *pVertices, float x, float y, float w, float h, const Color& color)
+    int drawRect(VertexPC *pVertices, float x, float y, float w, float h, const Color &color)
     {
         pVertices[0].position.x = x;
         pVertices[0].position.y = y;
@@ -268,7 +268,7 @@ namespace Rendering
         return 4;
     }
 
-    int drawLine(VertexPC *pVertices, const Position& from, const Position& to, const Color& color)
+    int drawLine(VertexPC *pVertices, const Position &from, const Position &to, const Color &color)
     {
         pVertices[0].position.x = from.x;
         pVertices[0].position.y = from.y;
@@ -281,7 +281,7 @@ namespace Rendering
         return 2;
     }
 
-    int drawText(VertexPTC *pVertices, const std::string& text, const Position& position, const Color& bgColor, const Color& color, float align)
+    int drawText(VertexPTC *pVertices, const std::string &text, const Position &position, const Color &bgColor, const Color &color, float align)
     {
         const float SIZE = 20.0f / ZOOM;
 
@@ -323,8 +323,8 @@ namespace Rendering
             }
 
             auto index = c - FIRST_CHAR;
-            const auto& uv1 = FONT[index][0];
-            const auto& uv2 = FONT[index][1];
+            const auto &uv1 = FONT[index][0];
+            const auto &uv2 = FONT[index][1];
 
             pVertices[0].position.x = pos.x;
             pVertices[0].position.y = pos.y;

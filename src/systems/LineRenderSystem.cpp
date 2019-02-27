@@ -1,4 +1,4 @@
-#include "labels.h"
+#include "tags.h"
 #include "LineRenderSystem.h"
 
 #include "components/Color.h"
@@ -10,11 +10,11 @@
 
 void updateLineRenderSystem(Registry &registry)
 {
-    Resources &resources = registry.get<Resources>(registry.attachee<Label::RESOURCES>());
+    Resources &resources = registry.get<Resources>(registry.attachee<Tag::Resources>());
 
     auto pVertices = resources.pPCVertices;
 
-    registry.view<Position, LineRenderer, Color>().each([&pVertices](auto entity, const Position& position, const LineRenderer& lineRenderer, const Color& color)
+    registry.view<Position, LineRenderer, Color>().each([&pVertices](auto entity, const Position &position, const LineRenderer &lineRenderer, const Color &color)
     {
         pVertices += Rendering::drawLine(pVertices, position, lineRenderer.target, color);
     });

@@ -1,3 +1,7 @@
+/*
+    Something that has money
+*/
+
 #ifndef BANK_H_INCLUDED
 #define BANK_H_INCLUDED
 

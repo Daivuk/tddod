@@ -1,4 +1,4 @@
-#include "labels.h"
+#include "tags.h"
 
 #include "components/Color.h"
 #include "components/ColorAnim.h"
@@ -17,12 +17,12 @@
 
 namespace Shooting
 {
-    void createSlowBolt(Registry &registry, const Position& from, const Position& to, const Color& color)
+    void createSlowBolt(Registry &registry, const Position &from, const Position &to, const Color &color)
     {
 
     }
 
-    void createBullet(Registry &registry, const Position& from, const Position& to, const Color& color)
+    void createBullet(Registry &registry, const Position &from, const Position &to, const Color &color)
     {
         // Left vector
         float dx = to.x - from.x;
@@ -88,7 +88,7 @@ namespace Shooting
     void kill(Registry &registry, Entity target)
     {
         if (registry.has<Dead>(target)) return; // Don't kill twice
-        Money::transfer(registry, target, registry.attachee<Label::PLAYER>());
+        Money::transfer(registry, target, registry.attachee<Tag::Player>());
         if (registry.has<Position, ShapeRenderer, Size, Color>(target))
         {
             PFX::spawnParticlesFromShape(registry, 
@@ -104,7 +104,7 @@ namespace Shooting
     {
         if (registry.has<Health>(target))
         {
-            auto& health = registry.get<Health>(target);
+            auto &health = registry.get<Health>(target);
             health.amount -= damage;
             if (health.amount <= 0.0f)
             {

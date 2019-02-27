@@ -1,7 +1,9 @@
 #include "constants.h"
-#include "labels.h"
+#include "data.h"
+#include "tags.h"
 
 #include "components/Inputs.h"
+#include "components/Position.h"
 #include "systems/InputSystem.h"
 
 static InputState updateInputState(bool raw, InputState prevState)
@@ -20,7 +22,7 @@ static InputState updateInputState(bool raw, InputState prevState)
 
 void updateInputSystem(Registry &registry)
 {
-    auto &inputs = registry.get<Inputs>(registry.attachee<Label::INPUTS>());
+    auto &inputs = registry.get<Inputs>(registry.attachee<Tag::Inputs>());
 
     // Generate mouse world position from mouse position
     inputs.worldMouse.x = (inputs.mouse.x - ((float)WIDTH - MAP_WIDTH * ZOOM) / 2.0f) / ZOOM + 0.5f;

@@ -10,7 +10,7 @@
 
 namespace PFX
 {
-    void spawnParticlesFromShape(Registry &registry, const Position& position, const ShapeRenderer& shapeRenderer, const Size& size, const Color& color);
+    void spawnParticlesFromShape(Registry &registry, const Position &position, const ShapeRenderer &shapeRenderer, const Size &size, const Color &color);
 };
 
 #endif

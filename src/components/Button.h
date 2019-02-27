@@ -1,3 +1,8 @@
+/*
+    Defines basic properties of a button. His disable state color and
+    onClick callback.
+*/
+
 #ifndef BUTTON_H_INCLUDED
 #define BUTTON_H_INCLUDED
 
@@ -5,7 +10,7 @@
 
 struct Button
 {
-    Color disabledColor;
+    Color       disabledColor;
     ON_CLICK_FN onClick;
 };
 

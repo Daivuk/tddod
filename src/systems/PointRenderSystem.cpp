@@ -1,4 +1,4 @@
-#include "labels.h"
+#include "tags.h"
 #include "LineRenderSystem.h"
 
 #include "components/Color.h"
@@ -10,11 +10,11 @@
 
 void updatePointRenderSystem(Registry &registry)
 {
-    Resources &resources = registry.get<Resources>(registry.attachee<Label::RESOURCES>());
+    Resources &resources = registry.get<Resources>(registry.attachee<Tag::Resources>());
 
     auto pVertices = resources.pPCVertices;
 
-    registry.view<PointRenderer, Position, Color>().each([&pVertices](auto entity, const PointRenderer& pointRenderer, const Position& position, const Color& color)
+    registry.view<PointRenderer, Position, Color>().each([&pVertices](auto entity, const PointRenderer &pointRenderer, const Position &position, const Color &color)
     {
         pVertices->position = position;
         pVertices->color = color;

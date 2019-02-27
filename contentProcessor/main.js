@@ -2,7 +2,10 @@ let fs = require('fs')
 let PNG = require('pngjs').PNG
 
 let fileData = 
-`// Generated file. DO NOT EDIT
+`/*
+    Generated file. DO NOT EDIT
+    Here lies all resources game data from raw assets.
+*/
 #ifndef DATA_H_INCLUDED
 #define DATA_H_INCLUDED
 
@@ -270,6 +273,19 @@ static const int FIRST_CHAR = '!';
 static const int LAST_CHAR = '~';
 static const TexCoord WHITE_UV = {(float)${10 / png.width}, (float)${26 / png.height}};
 
+`
+
+function fileToConstantString(filename)
+{
+    let constName = filename.replace('.', '_').toUpperCase()
+    let content = fs.readFileSync(`rawAssets/${filename}`).toString().replace(/(?:\r\n|\r|\n)/g, '')
+    fileData += `static const char *${constName} = "${content}";
+`
+}
+
+// Shaders
+fs.readdirSync("rawAssets/").filter(file => file.endsWith('.vert') || file.endsWith('.frag')).forEach(file => fileToConstantString(file))
+fileData += `
 `
 
 fileData += `#endif

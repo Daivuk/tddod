@@ -1,3 +1,7 @@
+/*
+    Singleton component, Tag::UIContext, storing UI states.
+*/
+
 #ifndef UICONTEXT_H_INCLUDED
 #define UICONTEXT_H_INCLUDED
 
@@ -5,8 +9,8 @@
 
 struct UIContext
 {
-    Entity hover;
-    Entity down;
+    Entity hover;   // Current mouse hover entity
+    Entity down;    // Entity when last mouse down
 };
 
 #endif

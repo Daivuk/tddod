@@ -1,5 +1,5 @@
 #include "HudSystem.h"
-#include "labels.h"
+#include "tags.h"
 
 #include "components/Bank.h"
 #include "components/Hud.h"
@@ -8,11 +8,11 @@
 
 void updateHudSystem(Registry &registry)
 {
-    auto &hud = registry.get<Hud>(registry.attachee<Label::HUD>());
+    auto &hud = registry.get<Hud>(registry.attachee<Tag::Hud>());
 
     {
         auto &textRenderer = registry.get<TextRenderer>(hud.currentWaveLabel);
-        auto wavesControllerEntity = registry.attachee<Label::WAVES_CONTROLLER>();
+        auto wavesControllerEntity = registry.attachee<Tag::WavesController>();
         if (wavesControllerEntity != NULL_ENTITY)
         {
             auto &wavesController = registry.get<WavesController>(wavesControllerEntity);
@@ -24,7 +24,7 @@ void updateHudSystem(Registry &registry)
         }
     }
     {
-        auto &playerBank = registry.get<Bank>(registry.attachee<Label::PLAYER>());
+        auto &playerBank = registry.get<Bank>(registry.attachee<Tag::Player>());
         auto &textRenderer = registry.get<TextRenderer>(hud.cashLabel);
         textRenderer.text = "Cash: $" + std::to_string((int)playerBank.amount);
     }

@@ -1,3 +1,7 @@
+/*
+    Singleton component, Tag::Resources, holding resource handles.
+*/
+
 #ifndef RESOURCES_H_INCLUDED
 #define RESOURCES_H_INCLUDED
 

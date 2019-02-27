@@ -4,7 +4,7 @@
 #include "components/Hoverable.h"
 #include "components/Name.h"
 #include "components/Position.h"
-#include "components/ShapeREnderer.h"
+#include "components/ShapeRenderer.h"
 #include "components/Size.h"
 #include "components/TextRenderer.h"
 #include "helpers/ShapeHelpers.h"

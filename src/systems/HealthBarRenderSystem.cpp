@@ -1,5 +1,5 @@
 #include "HealthBarRenderSystem.h"
-#include "labels.h"
+#include "tags.h"
 
 #include "components/Health.h"
 #include "components/LineRenderer.h"
@@ -10,10 +10,10 @@
 
 void updateHealthBarRenderSystem(Registry &registry)
 {
-    Resources &resources = registry.get<Resources>(registry.attachee<Label::RESOURCES>());
+    Resources &resources = registry.get<Resources>(registry.attachee<Tag::Resources>());
 
     auto pVertices = resources.pPCVertices;
-    registry.view<Health, Position>().each([&pVertices](auto entity, const Health& health, const Position& position)
+    registry.view<Health, Position>().each([&pVertices](auto entity, const Health &health, const Position &position)
     {
         if (health.amount == health.max) return; // We don't show full health
         auto t = health.amount / health.max;

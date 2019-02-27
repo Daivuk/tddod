@@ -1,3 +1,7 @@
+/*
+    Health component.
+*/
+
 #ifndef HEALTH_H_INCLUDED
 #define HEALTH_H_INCLUDED
 

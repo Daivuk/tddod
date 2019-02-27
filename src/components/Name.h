@@ -1,3 +1,7 @@
+/*
+    Name of the entity. Used for tooltips.
+*/
+
 #ifndef NAME_H_INCLUDED
 #define NAME_H_INCLUDED
 

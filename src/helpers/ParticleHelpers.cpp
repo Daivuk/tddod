@@ -1,4 +1,4 @@
-#include "labels.h"
+#include "tags.h"
 
 #include "components/Color.h"
 #include "components/ColorAnim.h"
@@ -14,17 +14,17 @@
 
 namespace PFX
 {
-    void spawnParticlesFromShape(Registry &registry, const Position& position, const ShapeRenderer& shapeRenderer, const Size& size, const Color& color)
+    void spawnParticlesFromShape(Registry &registry, const Position &position, const ShapeRenderer &shapeRenderer, const Size &size, const Color &color)
     {
-        Resources &resources = registry.get<Resources>(registry.attachee<Label::RESOURCES>());
+        Resources &resources = registry.get<Resources>(registry.attachee<Tag::Resources>());
 
         auto pVertices = resources.pPCVertices;
         pVertices += shapeRenderer.drawShape(pVertices, position, size.w, size.h, color);
         auto count = pVertices - resources.pPCVertices;
         for (int i = 0; i < count; i += 2)
         {
-            const auto& vertex1 = resources.pPCVertices[i];
-            const auto& vertex2 = resources.pPCVertices[i + 1];
+            const auto &vertex1 = resources.pPCVertices[i];
+            const auto &vertex2 = resources.pPCVertices[i + 1];
 
             auto vdx = vertex2.position.x - vertex1.position.x;
             auto vdy = vertex2.position.y - vertex1.position.y;

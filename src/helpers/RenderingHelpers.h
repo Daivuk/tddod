@@ -45,10 +45,10 @@ namespace Rendering
     void drawPoints(Registry &registry, const VertexPTC *pVertices, int count);
     void drawQuads(Registry &registry, const VertexPTC *pVertices, int count);
 
-    int drawRect(VertexPTC *pVertices, float x, float y, float w, float h, const Color& color);
-    int drawRect(VertexPC *pVertices, float x, float y, float w, float h, const Color& color);
-    int drawLine(VertexPC *pVertices, const Position& from, const Position& to, const Color& color);
-    int drawText(VertexPTC *pVertices, const std::string& text, const Position& position, const Color& bgColor, const Color& color, float align);
+    int drawRect(VertexPTC *pVertices, float x, float y, float w, float h, const Color &color);
+    int drawRect(VertexPC *pVertices, float x, float y, float w, float h, const Color &color);
+    int drawLine(VertexPC *pVertices, const Position &from, const Position &to, const Color &color);
+    int drawText(VertexPTC *pVertices, const std::string &text, const Position &position, const Color &bgColor, const Color &color, float align);
 };
 
 #endif

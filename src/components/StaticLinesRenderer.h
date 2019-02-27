@@ -1,3 +1,8 @@
+/*
+    Component that draws static lines.
+    This is used by the map entity.
+*/
+
 #ifndef STATICLINESRENDERER_H_INCLUDED
 #define STATICLINESRENDERER_H_INCLUDED
 
@@ -5,7 +10,7 @@
 
 struct StaticLinesRenderer
 {
-    GLuint vertexBuffer;
+    GLuint  vertexBuffer;
     GLsizei vertCount;
 };
 

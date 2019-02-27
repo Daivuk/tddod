@@ -5,7 +5,7 @@
 
 void updateColorAnimSystem(Registry &registry, float dt)
 {
-    registry.view<ColorAnim, Color>().each([dt](auto entity, ColorAnim& colorAnim, Color& color)
+    registry.view<ColorAnim, Color>().each([dt](auto entity, ColorAnim &colorAnim, Color &color)
     {
         auto anim = colorAnim.anim + dt;
         auto t = std::min(anim, colorAnim.duration) / colorAnim.duration;

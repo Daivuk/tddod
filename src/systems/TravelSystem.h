@@ -3,6 +3,6 @@
 
 #include "ecs.h"
 
-void updateTravelSystem(Registry& registry, float dt);
+void updateTravelSystem(Registry &registry, float dt);
 
 #endif

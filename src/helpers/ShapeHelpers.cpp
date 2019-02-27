@@ -7,7 +7,7 @@ static const float PI2 = 3.1415926535897932384626433832795f * 2.0f;
 
 namespace Shape
 {
-    int drawBox(VertexPC *pVertices, const Position& position, float w, float h, const Color& color)
+    int drawBox(VertexPC *pVertices, const Position &position, float w, float h, const Color &color)
     {
         pVertices[0].position.x = position.x - w;
         pVertices[0].position.y = position.y - h;
@@ -40,7 +40,7 @@ namespace Shape
         return 8;
     }
 
-    int drawCircle(VertexPC *pVertices, const Position& position, float w, float h, const Color& color)
+    int drawCircle(VertexPC *pVertices, const Position &position, float w, float h, const Color &color)
     {
         int vertCount = 0;
         const float STEP = PI2 / 12.0f;

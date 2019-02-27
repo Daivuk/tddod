@@ -1,4 +1,4 @@
-#include "labels.h"
+#include "tags.h"
 
 #include "components/Button.h"
 #include "components/Clickable.h"
@@ -9,9 +9,9 @@
 
 void updateButtonStateSystem(Registry &registry)
 {
-    auto &uiContext = registry.get<UIContext>(registry.attachee<Label::UI_CONTEXT>());
+    auto &uiContext = registry.get<UIContext>(registry.attachee<Tag::UIContext>());
 
-    registry.view<Button, Color>().each([&uiContext, &registry](auto entity, const Button& button, Color& color)
+    registry.view<Button, Color>().each([&uiContext, &registry](auto entity, const Button &button, Color &color)
     {
         if (registry.has<Hoverable, Clickable>(entity))
         {

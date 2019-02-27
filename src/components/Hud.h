@@ -1,3 +1,7 @@
+/*
+    Singleton component, Tag::Hud.
+*/
+
 #ifndef HUD_H_INCLUDED
 #define HUD_H_INCLUDED
 

@@ -1,5 +1,6 @@
 #include "constants.h"
-#include "labels.h"
+#include "data.h"
+#include "tags.h"
 
 #include "components/EndWaveChecker.h"
 #include "components/Position.h"
@@ -13,14 +14,14 @@ namespace Waves
     Entity createWavesController(Registry &registry)
     {
         auto entity = registry.create();
-        registry.assign<Label::WAVES_CONTROLLER>(entt::tag_t{}, entity);
+        registry.assign<Tag::WavesController>(entt::tag_t{}, entity);
         registry.assign<WavesController>(entity, 0, WAVE_COUNT, (Wave*)WAVES);
         return entity;
     }
 
     void startWave(Registry &registry, int index)
     {
-        auto wavesControllerEntity  = registry.attachee<Label::WAVES_CONTROLLER>();
+        auto wavesControllerEntity  = registry.attachee<Tag::WavesController>();
         auto &wavesController       = registry.get<WavesController>(wavesControllerEntity);
 
         registry.assign<EndWaveChecker>(wavesControllerEntity);

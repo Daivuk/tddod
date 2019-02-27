@@ -1,4 +1,4 @@
-#include "labels.h"
+#include "tags.h"
 
 #include "components/Clickable.h"
 #include "components/Inputs.h"
@@ -7,8 +7,8 @@
 
 void updateClickSystem(Registry &registry)
 {
-    auto &inputs = registry.get<Inputs>(registry.attachee<Label::INPUTS>());
-    auto &uiContext = registry.get<UIContext>(registry.attachee<Label::UI_CONTEXT>());
+    auto &inputs = registry.get<Inputs>(registry.attachee<Tag::Inputs>());
+    auto &uiContext = registry.get<UIContext>(registry.attachee<Tag::UIContext>());
 
     if (inputs.leftButtonState == InputState::JustDown)
     {

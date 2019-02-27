@@ -1,3 +1,11 @@
+/*
+    All constants and magic numbers in the game should be in this file.
+    So if we need to tweak stuff, we only have one place to look.
+
+    This could also make is easiest if we were to download settings from cloud,
+    to have them all in one place already.
+*/
+
 #ifndef CONSTANTS_H_INCLUDED
 #define CONSTANTS_H_INCLUDED
 
@@ -33,50 +41,5 @@ static const int ROCKET_TOWER_LVL3_PRICE = 800;
 static const int CANNON_TOWER_LVL1_PRICE = 250;
 static const int CANNON_TOWER_LVL2_PRICE = 500;
 static const int CANNON_TOWER_LVL3_PRICE = 1000;
-
-// Shaders
-static const char *PC_VS =
-    "uniform mat4 ProjMtx;\n"
-    "attribute vec2 Position;\n"
-    "attribute vec4 Color;\n"
-    "varying vec4 Frag_Color;\n"
-    "void main()\n"
-    "{\n"
-    "    Frag_Color = Color;\n"
-    "    gl_Position = ProjMtx * vec4(Position.xy, 0, 1);\n"
-    "}\n";
-
-static const char *PC_PS =
-    "varying vec4 Frag_Color;\n"
-    "void main()\n"
-    "{\n"
-    "    gl_FragColor = Frag_Color;\n"
-    "}\n";
-
-static const char *PTC_VS =
-    "uniform mat4 ProjMtx;\n"
-    "attribute vec2 Position;\n"
-    "attribute vec2 TexCoord;\n"
-    "attribute vec4 Color;\n"
-    "varying vec2 Frag_TexCoord;\n"
-    "varying vec4 Frag_Color;\n"
-    "void main()\n"
-    "{\n"
-    "    gl_Position = ProjMtx * vec4(Position.xy, 0, 1);\n"
-    "    Frag_TexCoord = TexCoord;\n"
-    "    Frag_Color = Color;\n"
-    "}\n";
-
-static const char *PTC_PS =
-    "varying vec2 Frag_TexCoord;\n"
-    "varying vec4 Frag_Color;\n"
-    "uniform sampler2D Texture;\n"
-    "void main()\n"
-    "{\n"
-    "    vec4 diffuse = texture2D(Texture, Frag_TexCoord);\n"
-    "    gl_FragColor = diffuse * Frag_Color;\n"
-    "}\n";
-
-#include "data.h"
 
 #endif

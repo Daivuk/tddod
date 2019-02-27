@@ -1,5 +1,5 @@
 #include "CashThresholdButtonToggleSystem.h"
-#include "labels.h"
+#include "tags.h"
 
 #include "components/Bank.h"
 #include "components/Button.h"
@@ -10,7 +10,7 @@
 
 void updateCashThresholdButtonToggleSystem(Registry &registry)
 {
-    auto &playerBank = registry.get<Bank>(registry.attachee<Label::PLAYER>());
+    auto &playerBank = registry.get<Bank>(registry.attachee<Tag::Player>());
 
     registry.view<CashThresholdButtonToggler, Button, Color>().each([&registry, &playerBank](auto entity, const CashThresholdButtonToggler &cashThresholdButtonToggler, const Button &button, Color &color)
     {

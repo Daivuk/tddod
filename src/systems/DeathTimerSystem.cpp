@@ -4,7 +4,7 @@
 
 void updateDeathTimerSystem(Registry &registry, float dt)
 {
-    registry.view<DeathTimer>().each([&registry, dt](auto entity, DeathTimer& deathTimer)
+    registry.view<DeathTimer>().each([&registry, dt](auto entity, DeathTimer &deathTimer)
     {
         auto delay = deathTimer.delay - dt;
         if (delay <= 0.0f)

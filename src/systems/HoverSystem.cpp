@@ -1,4 +1,4 @@
-#include "labels.h"
+#include "tags.h"
 
 #include "components/Hoverable.h"
 #include "components/Inputs.h"
@@ -8,8 +8,8 @@
 
 void updateHoverSystem(Registry &registry)
 {
-    auto &inputs    = registry.get<Inputs>(registry.attachee<Label::INPUTS>());
-    auto &uiContext = registry.get<UIContext>(registry.attachee<Label::UI_CONTEXT>());
+    auto &inputs    = registry.get<Inputs>(registry.attachee<Tag::Inputs>());
+    auto &uiContext = registry.get<UIContext>(registry.attachee<Tag::UIContext>());
 
     uiContext.hover = NULL_ENTITY;
 

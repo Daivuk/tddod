@@ -1,5 +1,5 @@
 #include "data.h"
-#include "labels.h"
+#include "tags.h"
 
 #include "systems/PlaceSystem.h"
 
@@ -9,9 +9,9 @@
 
 void updatePlaceSystem(Registry &registry)
 {
-    const auto &inputs = registry.get<Inputs>(registry.attachee<Label::INPUTS>());
+    const auto &inputs = registry.get<Inputs>(registry.attachee<Tag::Inputs>());
 
-    registry.view<Placer>().each([&registry, &inputs](auto entity, const Placer& placer)
+    registry.view<Placer>().each([&registry, &inputs](auto entity, const Placer &placer)
     {
         int mx = (int)inputs.worldMouse.x;
         int my = (int)inputs.worldMouse.y;

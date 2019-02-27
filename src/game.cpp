@@ -1,7 +1,13 @@
+/*
+    Main loop calls into this namespace.
+    The Game sould probably be an object that hold his own Registry, but
+    for simplicity, we only use 1 global Registry declared in main.
+*/
+
 #include "constants.h"
-#include "debugView.h"
+#include "data.h"
 #include "game.h"
-#include "labels.h"
+#include "tags.h"
 
 // Components
 #include "components/Bank.h"
@@ -94,11 +100,11 @@ namespace Game
         // Load resources
         {
             auto entity = registry.create();
-            registry.assign<Label::RESOURCES>(entt::tag_t{}, entity);
+            registry.assign<Tag::Resources>(entt::tag_t{}, entity);
 
             Resources resources;
-            resources.programPC = Rendering::createProgram(PC_VS, PC_PS, {"Position", "Color"});
-            resources.programPTC = Rendering::createProgram(PTC_VS, PTC_PS, {"Position", "TexCoord", "Color"});
+            resources.programPC = Rendering::createProgram(PC_VERT, PC_FRAG, {"Position", "Color"});
+            resources.programPTC = Rendering::createProgram(PTC_VERT, PTC_FRAG, {"Position", "TexCoord", "Color"});
             resources.fontTexture = Rendering::createTexture("assets/font.png");
             resources.vertexBuffer = Rendering::createVertexBuffer();
             resources.pPCVertices = new VertexPC[MAX_VERTICES];
@@ -118,7 +124,7 @@ namespace Game
         // Hud elements
         {
             auto entity = registry.create();
-            registry.assign<Label::HUD>(entt::tag_t{}, entity);
+            registry.assign<Tag::Hud>(entt::tag_t{}, entity);
 
             auto &hud = registry.assign<Hud>(entity);
             hud.currentWaveLabel = UI::createLabel(registry, "", { 0, 0 }, Color{ 0.75f, 0.75f, 0.75f, 1 });
@@ -146,7 +152,7 @@ namespace Game
         // Player
         {
             auto entity = registry.create();
-            registry.assign<Label::PLAYER>(entt::tag_t{}, entity);
+            registry.assign<Tag::Player>(entt::tag_t{}, entity);
             registry.assign<Bank>(entity, 150.0f);
             registry.assign<Investor>(entity, 0.003f);
         }
@@ -154,20 +160,20 @@ namespace Game
         // Tool tip
         {
             auto entity = registry.create();
-            registry.assign<Label::TOOLTIP>(entt::tag_t{}, entity);
+            registry.assign<Tag::Tooltip>(entt::tag_t{}, entity);
         }
 
         // UI Context
         {
             auto entity = registry.create();
-            registry.assign<Label::UI_CONTEXT>(entt::tag_t{}, entity);
+            registry.assign<Tag::UIContext>(entt::tag_t{}, entity);
             registry.assign<UIContext>(entity, NULL_ENTITY, NULL_ENTITY);
         }
 
         // Inputs
         {
             auto entity = registry.create();
-            registry.assign<Label::INPUTS>(entt::tag_t{}, entity);
+            registry.assign<Tag::Inputs>(entt::tag_t{}, entity);
 
             Inputs inputs;
             memset(&inputs, 0, sizeof(Inputs));
@@ -221,12 +227,6 @@ namespace Game
 
         Rendering::prepareForPTC(registry);
         updateTextRenderSystem(registry);
-
-        // Debug view
-        if (g_debugViewEnabled)
-        {
-            drawDebugView(registry);
-        }
 
         Rendering::endFrame();
     }

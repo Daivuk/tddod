@@ -1,5 +1,6 @@
 #include "constants.h"
-#include "labels.h"
+#include "data.h"
+#include "tags.h"
 
 #include "components/Color.h"
 #include "components/FindTarget.h"
@@ -88,7 +89,7 @@ namespace Tower
 
     void buyGunTurret(Registry &registry, const Position &position)
     {
-        if (!Money::withdraw(registry, registry.attachee<Label::PLAYER>(), GUN_TOWER_LVL1_PRICE)) return;
+        if (!Money::withdraw(registry, registry.attachee<Tag::Player>(), GUN_TOWER_LVL1_PRICE)) return;
 
         auto entity = registry.create();
 
@@ -106,7 +107,7 @@ namespace Tower
 
     void buySlowTurret(Registry &registry, const Position &position)
     {
-        if (!Money::withdraw(registry, registry.attachee<Label::PLAYER>(), SLOW_TOWER_LVL1_PRICE)) return;
+        if (!Money::withdraw(registry, registry.attachee<Tag::Player>(), SLOW_TOWER_LVL1_PRICE)) return;
 
         auto entity = registry.create();
 
@@ -123,7 +124,7 @@ namespace Tower
 
     void buyRocketTurret(Registry &registry, const Position &position)
     {
-        if (!Money::withdraw(registry, registry.attachee<Label::PLAYER>(),  ROCKET_TOWER_LVL1_PRICE)) return;
+        if (!Money::withdraw(registry, registry.attachee<Tag::Player>(),  ROCKET_TOWER_LVL1_PRICE)) return;
 
         auto entity = registry.create();
 
@@ -140,7 +141,7 @@ namespace Tower
 
     void buyCannonTurret(Registry &registry, const Position &position)
     {
-        if (!Money::withdraw(registry, registry.attachee<Label::PLAYER>(), CANNON_TOWER_LVL1_PRICE)) return;
+        if (!Money::withdraw(registry, registry.attachee<Tag::Player>(), CANNON_TOWER_LVL1_PRICE)) return;
 
         auto entity = registry.create();
 

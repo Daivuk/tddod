@@ -1,3 +1,8 @@
+/*
+    Program entry and main loop.
+    This is where we initialize SDL and poll events.
+*/
+
 #if defined(WIN32)
 #include <windows.h>
 #endif
@@ -9,7 +14,6 @@
 #include <stdio.h>
 
 #include "constants.h"
-#include "debugView.h"
 #include "game.h"
 
 #include "helpers/InputHelpers.h"
@@ -33,7 +37,7 @@ int main(int argc, char** argv)
     SDL_GL_SetSwapInterval(1);
     gl3wInit();
 
-    // Create our starting entities
+    // Create our registry and initialize the game
     Registry registry;
     Game::init(registry);
 
@@ -55,56 +59,31 @@ int main(int argc, char** argv)
         {
             switch (event.type)
             {
-                case SDL_QUIT:
-                    done = true;
-                    break;
-                case SDL_KEYDOWN:
-                    if (event.key.keysym.sym == SDLK_TAB) updateSpeed = 10;
-                    else if (event.key.keysym.sym == SDLK_SPACE)
-                    {
-                        if (updateSpeed) updateSpeed = 0;
-                        else updateSpeed = 1;
-                    }
-                    else if (event.key.keysym.sym == SDLK_d)
-                    {
-                        g_debugViewEnabled = !g_debugViewEnabled;
-                        if (g_debugViewEnabled)
-                        {
-                            int x, y;
-                            SDL_GetWindowPosition(sdlWindow, &x, &y);
-                            SDL_SetWindowSize(sdlWindow, WIDTH * 2, HEIGHT);
-                            SDL_SetWindowPosition(sdlWindow, x - WIDTH / 2, y);
-                        }
-                        else
-                        {
-                            int x, y;
-                            SDL_GetWindowPosition(sdlWindow, &x, &y);
-                            SDL_SetWindowSize(sdlWindow, WIDTH, HEIGHT);
-                            SDL_SetWindowPosition(sdlWindow, x + WIDTH / 2, y);
-                        }
-                    }
-
-                    Input::onKeyDown(registry, event.key.keysym.sym);
-                    break;
-                case SDL_KEYUP:
-                    if (event.key.keysym.sym == SDLK_TAB) updateSpeed = 1;
-                    Input::onKeyUp(registry, event.key.keysym.sym);
-                    break;
-                case SDL_MOUSEBUTTONDOWN:
+            case SDL_QUIT:
+                done = true;
+                break;
+            case SDL_KEYDOWN:
+                if (event.key.keysym.sym == SDLK_TAB) updateSpeed = 10;
+                else if (event.key.keysym.sym == SDLK_SPACE)
                 {
-                    Input::onMouseButtonDown(registry, event.button.button);
-                    break;
+                    if (updateSpeed) updateSpeed = 0;
+                    else updateSpeed = 1;
                 }
-                case SDL_MOUSEBUTTONUP:
-                {
-                    Input::onMouseButtonUp(registry, event.button.button);
-                    break;
-                }
-                case SDL_MOUSEMOTION:
-                {
-                    Input::onMouseMotion(registry, event.motion.x, event.motion.y);
-                    break;
-                }
+                Input::onKeyDown(registry, event.key.keysym.sym);
+                break;
+            case SDL_KEYUP:
+                if (event.key.keysym.sym == SDLK_TAB) updateSpeed = 1;
+                Input::onKeyUp(registry, event.key.keysym.sym);
+                break;
+            case SDL_MOUSEBUTTONDOWN:
+                Input::onMouseButtonDown(registry, event.button.button);
+                break;
+            case SDL_MOUSEBUTTONUP:
+                Input::onMouseButtonUp(registry, event.button.button);
+                break;
+            case SDL_MOUSEMOTION:
+                Input::onMouseMotion(registry, event.motion.x, event.motion.y);
+                break;
             }
         }
 
