@@ -1,0 +1,76 @@
+.App {
+  /* text-align: center; */
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.Column {
+    text-align: center;
+    width: 30vw;
+    margin-left: 9vw;
+    margin-right: 9vw;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.ECSComponent {
+    cursor: pointer;
+    display: inline-block;
+    border: 1px solid #23395B;
+    border-radius: 4px;
+    margin: 8px;
+    padding: 4px;
+}
+
+.ECSSystem {
+    cursor: pointer;
+    display: inline-block;
+    border: 1px solid #23395B;
+    border-radius: 4px;
+    margin: 8px;
+    padding: 4px;
+}
+
+.ECSActiveSystem {
+    cursor: pointer;
+    display: inline-block;
+    border: 1px solid #23395B;
+    border-radius: 4px;
+    margin: 8px;
+    padding: 4px;
+    color: #161925;
+    background: #A7CECB;
+}
+
+.ECSViewComponent {
+    cursor: pointer;
+    display: inline-block;
+    border: 1px solid #23395B;
+    border-radius: 4px;
+    margin: 8px;
+    padding: 4px;
+    color: #161925;
+    background: #A7CECB;
+}
+
+.ECSGetComponent {
+    cursor: pointer;
+    display: inline-block;
+    border: 1px solid #23395B;
+    border-radius: 4px;
+    margin: 8px;
+    padding: 4px;
+    color: #A7CECB;
+    background: #23395B;
+}
+
+.ECSHasComponent {
+    border: 1px solid #D62828;
+}
+
+.ECSComponent:hover {
+    color: #161925;
+    background: #78A1BB;
+}
