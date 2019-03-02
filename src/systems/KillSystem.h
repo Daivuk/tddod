@@ -3,6 +3,9 @@
 
 #include "ecs.h"
 
+/*
+    Kill entities marked with Dead
+*/
 void updateKillSystem(Registry &registry);
 
 #endif

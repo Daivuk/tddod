@@ -3,6 +3,9 @@
 
 #include "ecs.h"
 
+/*
+    draw pointRenderers
+*/
 void updatePointRenderSystem(Registry &registry);
 
 #endif

@@ -3,6 +3,9 @@
 
 #include "ecs.h"
 
+/*
+    Travel entities along a path
+*/
 void updateTravelSystem(Registry &registry, float dt);
 
 #endif

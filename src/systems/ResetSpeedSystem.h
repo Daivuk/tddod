@@ -3,6 +3,10 @@
 
 #include "ecs.h"
 
+/*
+    Reset speed of things that have baseSpeed.
+    This should be called before speed modifiers
+*/
 void updateResetSpeedSystem(Registry &registry);
 
 #endif

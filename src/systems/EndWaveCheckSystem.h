@@ -3,6 +3,9 @@
 
 #include "ecs.h"
 
+/*
+    Checks if the end wave condition are met
+*/
 void updateEndWaveCheckSystem(Registry &registry);
 
 #endif

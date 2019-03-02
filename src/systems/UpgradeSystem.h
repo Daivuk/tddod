@@ -3,6 +3,9 @@
 
 #include "ecs.h"
 
+/*
+    Upgrade mouse-hovered tower if pressing U
+*/
 void updateUpgradeSystem(Registry &registry);
 
 #endif

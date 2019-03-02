@@ -3,6 +3,9 @@
 
 #include "ecs.h"
 
+/*
+    Update mouse hover state
+*/
 void updateHoverSystem(Registry &registry);
 
 #endif

@@ -3,6 +3,9 @@
 
 #include "ecs.h"
 
+/*
+    Update info displayed in the hud
+*/
 void updateHudSystem(Registry &registry);
 
 #endif

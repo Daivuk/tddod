@@ -3,6 +3,9 @@
 
 #include "ecs.h"
 
+/*
+    Update input states
+*/
 void updateInputSystem(Registry &registry);
 
 #endif

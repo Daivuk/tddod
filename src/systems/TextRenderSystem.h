@@ -3,6 +3,9 @@
 
 #include "ecs.h"
 
+/*
+    Draw TextRenderers
+*/
 void updateTextRenderSystem(Registry &registry);
 
 #endif

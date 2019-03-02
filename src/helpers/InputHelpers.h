@@ -1,3 +1,7 @@
+/*
+    The main event loop calls these to modify the singleton Input component.
+*/
+
 #ifndef INPUTHELPERS_H_INCLUDED
 #define INPUTHELPERS_H_INCLUDED
 

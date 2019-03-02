@@ -3,6 +3,9 @@
 
 #include "ecs.h"
 
+/*
+    Update size pulse animations.
+*/
 void updateSizePulseAnimSystem(Registry &registry, float dt);
 
 #endif

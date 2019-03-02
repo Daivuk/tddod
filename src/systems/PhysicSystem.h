@@ -3,6 +3,9 @@
 
 #include "ecs.h"
 
+/*
+    Update particles
+*/
 void updatePhysicSystem(Registry &registry, float dt);
 
 #endif

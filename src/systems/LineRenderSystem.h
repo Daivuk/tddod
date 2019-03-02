@@ -3,6 +3,9 @@
 
 #include "ecs.h"
 
+/*
+    Draw LineRenderers
+*/
 void updateLineRenderSystem(Registry &registry);
 
 #endif

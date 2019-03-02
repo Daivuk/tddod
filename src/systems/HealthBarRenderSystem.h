@@ -3,6 +3,9 @@
 
 #include "ecs.h"
 
+/*
+    Draw health bars of entities without full health
+*/
 void updateHealthBarRenderSystem(Registry &registry);
 
 #endif

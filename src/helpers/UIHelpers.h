@@ -1,3 +1,7 @@
+/*
+    Factories to create UI elements
+*/
+
 #ifndef UIHELPERS_H_INCLUDED
 #define UIHELPERS_H_INCLUDED
 

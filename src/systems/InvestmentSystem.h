@@ -3,6 +3,9 @@
 
 #include "ecs.h"
 
+/*
+    Update investors
+*/
 void updateInvestmentSystem(Registry &registry, float dt);
 
 #endif

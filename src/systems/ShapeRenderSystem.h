@@ -3,6 +3,9 @@
 
 #include "ecs.h"
 
+/*
+    Draw ShapeRenderers
+*/
 void updateShapeRenderSystem(Registry &registry);
 
 #endif

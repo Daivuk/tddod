@@ -3,6 +3,9 @@
 
 #include "ecs.h"
 
+/*
+    Update speed nerfs (Those affected by slow tower)
+*/
 void updateSpeedNerfSystem(Registry &registry, float dt);
 
 #endif

@@ -3,6 +3,9 @@
 
 #include "ecs.h"
 
+/*
+    Update the tower placing cursor
+*/
 void updatePlaceSystem(Registry &registry);
 
 #endif

@@ -3,6 +3,9 @@
 
 #include "ecs.h"
 
+/*
+    Update spawners that spawn wave entities
+*/
 void updateSpawnSystem(Registry &registry, float dt);
 
 #endif

@@ -3,6 +3,9 @@
 
 #include "ecs.h"
 
+/*
+    Setup tooltip if the currently mouse hovered item has a name component.
+*/
 void updateToolTipSystem(Registry &registry);
 
 #endif

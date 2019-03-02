@@ -1,3 +1,7 @@
+/*
+    Helper and factory functions related to shooting.
+*/
+
 #ifndef SHOOTINGHELPERS_H_INCLUDED
 #define SHOOTINGHELPERS_H_INCLUDED
 

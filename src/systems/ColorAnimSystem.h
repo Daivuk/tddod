@@ -3,6 +3,9 @@
 
 #include "ecs.h"
 
+/*
+    Updates color animations.
+*/
 void updateColorAnimSystem(Registry &registry, float dt);
 
 #endif

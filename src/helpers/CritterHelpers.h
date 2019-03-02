@@ -1,3 +1,7 @@
+/*
+    Factory functions to create critters
+*/
+
 #ifndef CRITTERHELPERS_H_INCLUDED
 #define CRITTERHELPERS_H_INCLUDED
 
