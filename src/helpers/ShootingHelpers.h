@@ -13,9 +13,11 @@ struct Color;
 namespace Shooting
 {
     void createSlowBolt(Registry &registry, const Position &from, const Position &to, const Color &color);
+    void createCannonBall(Registry &registry, const Position &from, const Position &to, const Color &color, float damage);
     void createBullet(Registry &registry, const Position &from, const Position &to, const Color &color);
     void kill(Registry &registry, Entity target);
     void damage(Registry &registry, Entity target, float damage);
+    void radiusDamage(Registry &registry, const Position &position, float radius, float damage);
     void slow(Registry &registry, const Position &position, float radius, float speedMult);
 }
 

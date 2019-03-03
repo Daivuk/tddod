@@ -29,6 +29,8 @@ struct Resources
     Sound       gunSound;       /* When gun towers shoot */
     Sound       popSound;       /* Plays when enemy dies */
     Sound       slowSound;      /* Slow tower shoot */
+    Sound       cannonSound;    /* Cannon shoot */
+    Sound       explosionSound; /* Cannon ball impact */
 };
 
 #endif

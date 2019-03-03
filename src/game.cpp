@@ -40,6 +40,7 @@
 #include "systems/PhysicSystem.h"
 #include "systems/PlaceSystem.h"
 #include "systems/PointRenderSystem.h"
+#include "systems/PositionAnimSystem.h"
 #include "systems/ResetSpeedSystem.h"
 #include "systems/ShapeRenderSystem.h"
 #include "systems/SizePulseAnimSystem.h"
@@ -79,6 +80,8 @@ namespace Game
             resources.gunSound = Audio::loadSound("assets/gun.wav");
             resources.popSound = Audio::loadSound("assets/pop.wav");
             resources.slowSound = Audio::loadSound("assets/slow.wav");
+            resources.cannonSound = Audio::loadSound("assets/cannon.wav");
+            resources.explosionSound = Audio::loadSound("assets/explosion.wav");
             registry.assign<Resources>(entity, resources);
         }
 
@@ -166,6 +169,7 @@ namespace Game
         updateDeathTimerSystem(registry, dt);
         updateColorAnimSystem(registry, dt);
         updateLineAnimSystem(registry, dt);
+        updatePositionAnimSystem(registry, dt);
         updateSizePulseAnimSystem(registry, dt);
         updatePhysicSystem(registry, dt);
         updateKillSystem(registry);

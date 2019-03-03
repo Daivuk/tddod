@@ -52,9 +52,7 @@ static void shootGunLvl3(Registry &registry, Entity target, Entity from)
 
 static void shootSlowLvl1(Registry &registry, Entity target, Entity from)
 {
-    // Instant ray. Spawn fx
-    Shooting::createBullet(registry, registry.get<Position>(from), registry.get<Position>(target), { 0, 1, 0, 1 });
-    Shooting::slow(registry, registry.get<Position>(target), 0.5f, 0.5f);
+    Shooting::createSlowBolt(registry, registry.get<Position>(from), registry.get<Position>(target), TOWER_LEVEL1_COLOR);
 
     const auto &resources = registry.get<Resources>(registry.attachee<Tag::Resources>());
     Audio::playSound(registry, resources.slowSound);
@@ -67,7 +65,26 @@ static void shootRocketLvl1(Registry &registry, Entity target, Entity from)
 
 static void shootCannonLvl1(Registry &registry, Entity target, Entity from)
 {
+    Shooting::createCannonBall(registry, registry.get<Position>(from), registry.get<Position>(target), TOWER_LEVEL1_COLOR, 5.0f);
 
+    const auto &resources = registry.get<Resources>(registry.attachee<Tag::Resources>());
+    Audio::playSound(registry, resources.cannonSound);
+}
+
+static void shootCannonLvl2(Registry &registry, Entity target, Entity from)
+{
+    Shooting::createCannonBall(registry, registry.get<Position>(from), registry.get<Position>(target), TOWER_LEVEL2_COLOR, 15.0f);
+
+    const auto &resources = registry.get<Resources>(registry.attachee<Tag::Resources>());
+    Audio::playSound(registry, resources.cannonSound);
+}
+
+static void shootCannonLvl3(Registry &registry, Entity target, Entity from)
+{
+    Shooting::createCannonBall(registry, registry.get<Position>(from), registry.get<Position>(target), TOWER_LEVEL3_COLOR, 27.0f);
+
+    const auto &resources = registry.get<Resources>(registry.attachee<Tag::Resources>());
+    Audio::playSound(registry, resources.cannonSound);
 }
 
 static void upgradeGunLvl3(Registry &registry, Entity entity)
@@ -84,6 +101,22 @@ static void upgradeGunLvl2(Registry &registry, Entity entity)
     registry.accommodate<Name>(entity, "Gun Turret 2 - \"U\" upgrade $400");
     registry.accommodate<Targeter>(entity, (uint8_t)(TargetMask::GROUND | TargetMask::AIR), 210.0f / 60.0f + 0.5f, 0.5f, shootGunLvl2);
     registry.accommodate<Upgradable>(entity, (float)GUN_TOWER_LVL3_PRICE, upgradeGunLvl3);
+}
+
+static void upgradeCannonLvl3(Registry &registry, Entity entity)
+{
+    registry.accommodate<Color>(entity, TOWER_LEVEL3_COLOR);
+    registry.accommodate<Name>(entity, "Cannon Turret 3");
+    registry.accommodate<Targeter>(entity, (uint8_t)(TargetMask::GROUND), 210.0f / 60.0f + 1.0f, 0.75f, shootCannonLvl3);
+    registry.reset<Upgradable>(entity);
+}
+
+static void upgradeCannonLvl2(Registry &registry, Entity entity)
+{
+    registry.accommodate<Color>(entity, TOWER_LEVEL2_COLOR);
+    registry.accommodate<Name>(entity, "Cannon Turret 2 - \"U\" upgrade $1000");
+    registry.accommodate<Targeter>(entity, (uint8_t)(TargetMask::GROUND), 210.0f / 60.0f + 0.5f, 1.0f, shootCannonLvl2);
+    registry.accommodate<Upgradable>(entity, (float)GUN_TOWER_LVL3_PRICE, upgradeCannonLvl3);
 }
 
 namespace Tower
@@ -131,7 +164,7 @@ namespace Tower
         registry.assign<TextRenderer>(entity, "S", Color{ 0, 0, 0, 0 }, 0.5f);
         registry.assign<ShapeRenderer>(entity, Shape::drawBox);
         registry.assign<Name>(entity, "Slow Turret");
-        registry.assign<Targeter>(entity, (uint8_t)(TargetMask::GROUND | TargetMask::AIR), 210.0f / 60.0f, 2.5f, shootSlowLvl1);
+        registry.assign<Targeter>(entity, (uint8_t)(TargetMask::GROUND), 210.0f / 60.0f, 2.5f, shootSlowLvl1);
         registry.assign<FindTarget>(entity);
         registry.assign<Hoverable>(entity);
     }
@@ -164,9 +197,10 @@ namespace Tower
         registry.assign<Color>(entity, TOWER_LEVEL1_COLOR);
         registry.assign<TextRenderer>(entity, "C", Color{ 0, 0, 0, 0 }, 0.5f);
         registry.assign<ShapeRenderer>(entity, Shape::drawBox);
-        registry.assign<Name>(entity, "Cannon Turret");
+        registry.assign<Name>(entity, "Cannon Turret - \"U\" upgrade $500");
         registry.assign<Targeter>(entity, TargetMask::GROUND, 210.0f / 60.0f, 1.0f, shootCannonLvl1);
         registry.assign<FindTarget>(entity);
         registry.assign<Hoverable>(entity);
+        registry.assign<Upgradable>(entity, (float)CANNON_TOWER_LVL2_PRICE, upgradeCannonLvl2);
     }
 }
