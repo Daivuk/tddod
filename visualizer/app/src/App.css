@@ -6,11 +6,21 @@
   color: #61dafb;
 }
 
-.Column {
+.Row {
     text-align: center;
-    width: 30vw;
-    margin-left: 9vw;
-    margin-right: 9vw;
+    width: 100vw;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    background: #262935;
+}
+
+.Column {
+    padding-top: 16px;
+    text-align: center;
+    width: 28vw;
+    margin-left: 2vw;
+    margin-right: 2vw;
     display: inline-block;
     vertical-align: middle;
 }
@@ -18,7 +28,7 @@
 .ECSComponent {
     cursor: pointer;
     display: inline-block;
-    border: 1px solid #23395B;
+    border: 1px solid #23895B;
     border-radius: 4px;
     margin: 8px;
     padding: 4px;
@@ -28,6 +38,15 @@
     cursor: pointer;
     display: inline-block;
     border: 1px solid #23395B;
+    border-radius: 4px;
+    margin: 8px;
+    padding: 4px;
+}
+
+.ECSTag {
+    cursor: pointer;
+    display: inline-block;
+    border: 1px solid #B3595B;
     border-radius: 4px;
     margin: 8px;
     padding: 4px;
@@ -73,4 +92,14 @@
 .ECSComponent:hover {
     color: #161925;
     background: #78A1BB;
+}
+
+.Search {
+    padding: 8px;
+    margin: 16px;
+    border: 1px solid #23395B;
+    border-radius: 4px;
+    background: #161925;
+    text-align: center;
+    color: #A7CECB;
 }

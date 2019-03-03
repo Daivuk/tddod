@@ -2,6 +2,7 @@ let fs = require('fs')
 
 let components = []
 let systems = []
+let tags = []
 
 // Read components
 {
@@ -93,7 +94,14 @@ let systems = []
     })
 }
 
+// Read tags
+{
+    let srcContent = fs.readFileSync(`../../src/tags.h`).toString()
+    tags = srcContent.match(/LABEL\((\w+)\)\;/g).map(m => m.match(/LABEL\((\w+)\)\;/)[1])
+}
+
 let out = `exports.components = ${JSON.stringify(components)}
 exports.systems = ${JSON.stringify(systems)}
+exports.tags = ${JSON.stringify(tags)}
 `
 fs.writeFileSync(`../app/src/registry.js`, out)
