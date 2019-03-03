@@ -27,7 +27,6 @@ namespace Rendering
 {
     GLuint createProgram(const GLchar *vs, const GLchar *ps, const std::vector<const char *> &attribs)
     {
-        GLint bResult;
         const GLchar *vertex_shader_with_version[2]     = {"#version 120\n", vs};
         const GLchar *fragment_shader_with_version[2]   = {"#version 120\n", ps};
 

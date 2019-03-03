@@ -6,6 +6,7 @@
 #include "components/FindTarget.h"
 #include "components/Hoverable.h"
 #include "components/Name.h"
+#include "components/Resources.h"
 #include "components/Size.h"
 #include "components/SizePulseAnim.h"
 #include "components/ShapeRenderer.h"
@@ -13,6 +14,7 @@
 #include "components/Targeter.h"
 #include "components/TextRenderer.h"
 #include "components/Upgradable.h"
+#include "helpers/AudioHelpers.h"
 #include "helpers/BankHelpers.h"
 #include "helpers/ShapeHelpers.h"
 #include "helpers/ShootingHelpers.h"
@@ -23,6 +25,9 @@ static void shootGunLvl1(Registry &registry, Entity target, Entity from)
     // Instant ray. Spawn fx
     Shooting::createBullet(registry, registry.get<Position>(from), registry.get<Position>(target), { 0, 1, 0, 1 });
     Shooting::damage(registry, target, 10.0f);
+
+    const auto &resources = registry.get<Resources>(registry.attachee<Tag::Resources>());
+    Audio::playSound(registry, resources.gunSound);
 }
 
 static void shootGunLvl2(Registry &registry, Entity target, Entity from)
@@ -30,6 +35,9 @@ static void shootGunLvl2(Registry &registry, Entity target, Entity from)
     // Instant ray. Spawn fx
     Shooting::createBullet(registry, registry.get<Position>(from), registry.get<Position>(target), { 1, 1, 0, 1 });
     Shooting::damage(registry, target, 15.0f);
+
+    const auto &resources = registry.get<Resources>(registry.attachee<Tag::Resources>());
+    Audio::playSound(registry, resources.gunSound);
 }
 
 static void shootGunLvl3(Registry &registry, Entity target, Entity from)
@@ -37,6 +45,9 @@ static void shootGunLvl3(Registry &registry, Entity target, Entity from)
     // Instant ray. Spawn fx
     Shooting::createBullet(registry, registry.get<Position>(from), registry.get<Position>(target), { 1, 0.75f, 0.75f, 1 });
     Shooting::damage(registry, target, 17.5f);
+
+    const auto &resources = registry.get<Resources>(registry.attachee<Tag::Resources>());
+    Audio::playSound(registry, resources.gunSound);
 }
 
 static void shootSlowLvl1(Registry &registry, Entity target, Entity from)
@@ -44,6 +55,9 @@ static void shootSlowLvl1(Registry &registry, Entity target, Entity from)
     // Instant ray. Spawn fx
     Shooting::createBullet(registry, registry.get<Position>(from), registry.get<Position>(target), { 0, 1, 0, 1 });
     Shooting::slow(registry, registry.get<Position>(target), 0.5f, 0.5f);
+
+    const auto &resources = registry.get<Resources>(registry.attachee<Tag::Resources>());
+    Audio::playSound(registry, resources.slowSound);
 }
 
 static void shootRocketLvl1(Registry &registry, Entity target, Entity from)

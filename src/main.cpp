@@ -18,6 +18,8 @@
 
 #include "helpers/InputHelpers.h"
 
+void audioCallback(void *userdata, Uint8 *stream, int len);
+
 #if defined(WIN32)
 int CALLBACK WinMain(HINSTANCE appInstance, HINSTANCE prevInstance, LPSTR cmdLine, int cmdCount)
 #else
@@ -31,7 +33,7 @@ int main(int argc, char** argv)
         SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
         WIDTH, HEIGHT,
         SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
-    
+
     // Init OpenGL
     auto glContext = SDL_GL_CreateContext(sdlWindow);
     SDL_GL_SetSwapInterval(1);
@@ -40,6 +42,21 @@ int main(int argc, char** argv)
     // Create our registry and initialize the game
     Registry registry;
     Game::init(registry);
+
+    // Init audio
+    SDL_AudioSpec audioSpec;
+    memset(&audioSpec, 0, sizeof(SDL_AudioSpec));
+    audioSpec.freq = 44100;
+    audioSpec.format = AUDIO_S16LSB;
+    audioSpec.callback = audioCallback;
+    audioSpec.channels = 2;
+    audioSpec.samples = 4096;
+    audioSpec.userdata = &registry;
+    if (SDL_OpenAudio(&audioSpec, NULL) < 0)
+    {
+        assert(false);
+    }
+    SDL_PauseAudio(0);
 
     // Main loop
     int updateSpeed = 1;
@@ -54,6 +71,7 @@ int main(int argc, char** argv)
         auto dt = (float)((double)std::chrono::duration_cast<std::chrono::microseconds>(diffTime).count() / 1000000.0);
 
         // Poll events
+        SDL_LockAudio();
         SDL_Event event;
         while (SDL_PollEvent(&event))
         {
@@ -99,6 +117,8 @@ int main(int argc, char** argv)
         // Draw game
         Game::render(registry);
 
+        SDL_UnlockAudio();
+
         // Swap buffers
         SDL_GL_SwapWindow(sdlWindow);
     }
@@ -107,4 +127,12 @@ int main(int argc, char** argv)
     SDL_GL_DeleteContext(glContext);
     SDL_DestroyWindow(sdlWindow);
     SDL_Quit();
+}
+
+void audioCallback(void *userdata, Uint8 *stream, int len)
+{
+    memset(stream, 0, len);
+
+    auto &registry = *(Registry*)userdata;
+    Game::updateAudio(registry, stream, len);
 }

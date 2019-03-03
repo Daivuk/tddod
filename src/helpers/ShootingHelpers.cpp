@@ -8,9 +8,11 @@
 #include "components/LineAnim.h"
 #include "components/LineRenderer.h"
 #include "components/Position.h"
+#include "components/Resources.h"
 #include "components/ShapeRenderer.h"
 #include "components/SpeedNerf.h"
 #include "components/Target.h"
+#include "helpers/AudioHelpers.h"
 #include "helpers/BankHelpers.h"
 #include "helpers/ParticleHelpers.h"
 #include "helpers/ShootingHelpers.h"
@@ -96,6 +98,9 @@ namespace Shooting
                 registry.get<ShapeRenderer>(target),
                 registry.get<Size>(target), 
                 registry.get<Color>(target));
+
+            const auto &resources = registry.get<Resources>(registry.attachee<Tag::Resources>());
+            Audio::playSound(registry, resources.popSound);
         }
         registry.accommodate<Dead>(target);
     }

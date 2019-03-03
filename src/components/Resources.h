@@ -6,9 +6,17 @@
 #define RESOURCES_H_INCLUDED
 
 #include <GL/gl3w.h>
+#include <SDL.h>
 
 struct VertexPC;
 struct VertexPTC;
+
+struct Sound
+{
+    Uint32 len;
+    Uint8 *buffer;
+    SDL_AudioSpec spec;
+};
 
 struct Resources
 {
@@ -18,6 +26,9 @@ struct Resources
     GLuint      vertexBuffer;   /* Dynamic version buffer used by batches */
     VertexPC   *pPCVertices;    /* Used by dynamic rendering of Position/Color */
     VertexPTC  *pPTCVertices;   /* Used by dynamic rendering of Position/TexCoord/Color */
+    Sound       gunSound;       /* When gun towers shoot */
+    Sound       popSound;       /* Plays when enemy dies */
+    Sound       slowSound;      /* Slow tower shoot */
 };
 
 #endif

@@ -20,6 +20,7 @@
 #include "components/Upgradable.h"
 
 // Systems
+#include "systems/AudioMixerSystem.h"
 #include "systems/ButtonStateSystem.h"
 #include "systems/CashThresholdButtonToggleSystem.h"
 #include "systems/ClickSystem.h"
@@ -53,6 +54,7 @@
 #include "systems/UpgradeSystem.h"
 
 // Helpers
+#include "helpers/AudioHelpers.h"
 #include "helpers/RenderingHelpers.h"
 #include "helpers/TowerHelpers.h"
 #include "helpers/UIHelpers.h"
@@ -60,43 +62,8 @@
 
 namespace Game
 {
-
-    //struct Sound
-    //{
-    //
-    //};
-    //
-    //void my_audio_callback(void *userdata, Uint8 *stream, int len)
-    //{
-    //    //len = (len > audio_len ? audio_len : len);
-    //    //SDL_MixAudio(stream, audio_pos, len, SDL_MIX_MAXVOLUME);// mix from one buffer into another
-    //
-    //    //audio_pos += len;
-    //    //audio_len -= len;
-    //}
-
     void init(Registry &registry)
     {
-        //// Load sounds
-        //static Uint32 wav_length; // length of our sample
-        //static Uint8 *wav_buffer; // buffer containing our audio file
-        //static SDL_AudioSpec wav_spec; // the specs of our piece of music
-        //                               /* Load the WAV */
-        //                               // the specs, length and buffer of our wav are filled
-        //if (SDL_LoadWAV("assets/gun.wav", &wav_spec, &wav_buffer, &wav_length) == NULL)
-        //{
-        //    assert(false);
-        //    return;
-        //}
-        //wav_spec.callback = my_audio_callback;
-        //wav_spec.userdata = NULL;
-        //if (SDL_OpenAudio(&wav_spec, NULL) < 0)
-        //{
-        //    assert(false);
-        //    return;
-        //}
-        //SDL_PauseAudio(0);
-
         // Load resources
         {
             auto entity = registry.create();
@@ -109,6 +76,9 @@ namespace Game
             resources.vertexBuffer = Rendering::createVertexBuffer();
             resources.pPCVertices = new VertexPC[MAX_VERTICES];
             resources.pPTCVertices = new VertexPTC[MAX_VERTICES];
+            resources.gunSound = Audio::loadSound("assets/gun.wav");
+            resources.popSound = Audio::loadSound("assets/pop.wav");
+            resources.slowSound = Audio::loadSound("assets/slow.wav");
             registry.assign<Resources>(entity, resources);
         }
 
@@ -212,6 +182,11 @@ namespace Game
         updateToolTipSystem(registry);
         updateButtonStateSystem(registry);
         updatePlaceSystem(registry);
+    }
+
+    void updateAudio(Registry &registry, uint8_t *buffer, int len)
+    {
+        updateAudioMixerSystem(registry, buffer, len);
     }
 
     void render(Registry &registry)
