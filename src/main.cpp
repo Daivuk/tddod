@@ -50,7 +50,7 @@ int main(int argc, char** argv)
     audioSpec.format = AUDIO_S16LSB;
     audioSpec.callback = audioCallback;
     audioSpec.channels = 2;
-    audioSpec.samples = 4096;
+    audioSpec.samples = 4096 / 4;
     audioSpec.userdata = &registry;
     if (SDL_OpenAudio(&audioSpec, NULL) < 0)
     {
