@@ -22,7 +22,7 @@
     margin-left: 2vw;
     margin-right: 2vw;
     display: inline-block;
-    vertical-align: middle;
+    vertical-align: top;
 }
 
 .ECSComponent {

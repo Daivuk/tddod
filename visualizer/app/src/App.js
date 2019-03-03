@@ -155,21 +155,19 @@ class App extends Component
 
     onComponentClick(c)
     {
-        let state = this.state
-
-        let activeSystemViews = state.systems.reduce((ass, s) =>
+        let activeSystemViews = registry.systems.reduce((ass, s) =>
         {
             if (s.view.find(v => v === c)) ass.push(s)
             return ass
         }, [])
 
-        let activeSystemGets = state.systems.reduce((ass, s) =>
+        let activeSystemGets = registry.systems.reduce((ass, s) =>
         {
             if (s.get.find(v => v === c)) ass.push(s)
             return ass
         }, [])
 
-        let activeSystemHass = state.systems.reduce((ass, s) =>
+        let activeSystemHass = registry.systems.reduce((ass, s) =>
         {
             if (s.has.find(v => v === c)) ass.push(s)
             return ass
@@ -188,9 +186,7 @@ class App extends Component
 
     onTagClick(t)
     {
-        let state = this.state
-
-        let attachees = state.systems.reduce((ass, s) =>
+        let attachees = registry.systems.reduce((ass, s) =>
         {
             if (s.attachee.find(v => v === t)) ass.push(s)
             return ass
@@ -248,19 +244,15 @@ class App extends Component
 
     render()
     {
-        let components = this.state.components.concat(b.filter(function (item) {
-            return a.indexOf(item) < 0;
-        }));
+        let systems = this.state.systems.concat(this.state.activeSystemViews.filter(item => this.state.systems.indexOf(item) < 0))
+        systems = systems.concat(this.state.activeSystemGets.filter(item => systems.indexOf(item) < 0))
+        systems = systems.concat(this.state.activeSystemHass.filter(item => systems.indexOf(item) < 0))
 
-        this.state.components.map(c =>
-        {
-            return <ECSComponent component={c} 
-                view={this.state.activeViews.find(ac => ac === c)} 
-                get={this.state.activeGets.find(ag => ag === c)} 
-                has={this.state.activeHass.find(ah => ah === c)} 
-                onLeave={this.removeActive.bind(this)} 
-                onComponentClick={this.onComponentClick.bind(this)} />
-        })
+        let components = this.state.components.concat(this.state.activeViews.filter(item => this.state.components.indexOf(item) < 0))
+        components = components.concat(this.state.activeGets.filter(item => components.indexOf(item) < 0))
+        components = components.concat(this.state.activeHass.filter(item => components.indexOf(item) < 0))
+
+        let tags = this.state.tags.concat(this.state.activeTags.filter(item => this.state.tags.indexOf(item) < 0))
 
         return (
             <div className="App">
@@ -274,7 +266,7 @@ class App extends Component
                 </div>
                 <div className="Column">
                     {
-                        this.state.tags.map(t =>
+                        tags.map(t =>
                         {
                             return <ECSTag tag={t} 
                                 active={this.state.activeTags.find(ass => ass === t)} 
@@ -285,7 +277,7 @@ class App extends Component
                 </div>
                 <div className="Column">
                     {
-                        this.state.systems.map(s =>
+                        systems.map(s =>
                         {
                             return <ECSSystem system={s} 
                                 view={this.state.activeSystemViews.find(ass => ass === s)} 
