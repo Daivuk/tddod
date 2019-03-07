@@ -12,6 +12,20 @@ Other tower defense examples using EnTT exist. This one was only built for learn
 
 * `visualizer/` Tool to visualize Tags/Systems/Components and see which uses which.
 
+## How to build
+```
+git submodule update --init
+mkdir build
+cd build
+cmake ..
+```
+On windows, open the solution, build and run.
+On linux or mac, do:
+```
+make
+./tddod
+```
+
 ## The ruleset for this project
 - Components are struct only. No complex type and no logic.
 - Systems are single function only.
