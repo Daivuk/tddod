@@ -10,12 +10,16 @@ Other tower defense examples using EnTT exist. This one was only built for learn
 
 * `thirdparty/` Various thirdparty libraries and submodules used by this project.
 
+* `visualizer/` Tool to visualize Tags/Systems/Components and see which uses which.
+
 ## The ruleset for this project
 - Components are struct only. No complex type and no logic.
 - Systems are single function only.
-- Systems don't call other systems.
 - Helper functions are used to create complex entity types (Factories) or to perform eventful actions.
 
-## Reference
-Overwatch Gameplay Architecture and Netcode. The rules applied to this project are greatly influenced by this talk. Go check it out.
-https://www.youtube.com/watch?v=W3aieHjyNvw
+## References
+* Typical C++ Bullshit https://macton.smugmug.com/Other/2008-07-15-by-Eye-Fi/n-xmKDH/i-BrHWXdJ
+* CppCon 2014: Mike Acton "Data-Oriented Design and C++"https://www.youtube.com/watch?v=rX0ItVEVjHc
+* EnTT -  a fast and reliable entity-component system https://github.com/skypjack/entt
+* Overwatch Gameplay Architecture and Netcode https://www.youtube.com/watch?v=W3aieHjyNvw
+* Data Oriented Design Resources https://github.com/dbartolini/data-oriented-design
