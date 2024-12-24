@@ -71,7 +71,7 @@ int main(int argc, char** argv)
         auto dt = (float)((double)std::chrono::duration_cast<std::chrono::microseconds>(diffTime).count() / 1000000.0);
 
         // Poll events
-        SDL_LockAudio();
+        //SDL_LockAudio();
         SDL_Event event;
         while (SDL_PollEvent(&event))
         {
@@ -117,7 +117,7 @@ int main(int argc, char** argv)
         // Draw game
         Game::render(registry);
 
-        SDL_UnlockAudio();
+        //SDL_UnlockAudio();
 
         // Swap buffers
         SDL_GL_SwapWindow(sdlWindow);

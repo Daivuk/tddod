@@ -1,6 +1,8 @@
 # EnTT Tower Defense Example
 Other tower defense examples using EnTT exist. This one was only built for learning experience also for a talk I gave at work for a Lunch n Learn, also for TechSphere Ottawa.
 
+![](preview.png)
+
 ## Repository structure
 * `assets/` Game content loaded at runtime. CMake will copy this into your build folder.
 

@@ -12,10 +12,10 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake/")
 project(tddod)
 
 # Some compiler flags
-set(CMAKE_CXX_STANDARD 14) # C++14
-if (MSVC)
-    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}" "/MP") # Multi core in VS
-endif()
+# set(CMAKE_CXX_STANDARD 17) # C++17
+# if (MSVC)
+#     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}" "/MP") # Multi core in VS
+# endif()
 
 # Define _DEBUG
 if (CMAKE_BUILD_TYPE MATCHES Debug)
